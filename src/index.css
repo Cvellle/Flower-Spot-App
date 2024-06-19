@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+@import url("https://fonts.cdnfonts.com/css/montserrat");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: Ubuntu, sans-serif;
+  background-color: #ffffff;
+}
+
+/* date and file input css */
+.form-control {
+  position: relative;
+  border: none;
+  box-sizing: border-box;
+  outline: 0;
+  position: relative;
+  height: 50px;
+  color: transparent;
+  opacity: 0;
+}
+
+.form-control * {
+  display: none;
+  color: transparent;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  background: transparent;
+  padding: 10px;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* switch input css */
+.fowerspopt_swicth_input .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.fowerspopt_swicth_input .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.fowerspopt_swicth_input .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  height: 30px;
+  width: 76px;
+  border: 0.5px solid lightGray;
+  display: flex;
+  align-items: center;
+}
+
+.fowerspopt_swicth_input .slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #df9186;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.fowerspopt_swicth_input input + .slider {
+  background-color: #f9f9f9;
+  box-shadow: 0 0 1px #f9f9f9;
+}
+
+.fowerspopt_swicth_input input + .slider {
+  box-shadow: 0 0 1px #f9f9f9;
+}
+
+.fowerspopt_swicth_input input + .slider {
+  box-shadow: 0 0 1px #f9f9f9;
+}
+
+.fowerspopt_swicth_input input:checked + .slider:before {
+  -webkit-transform: translateX(210%);
+  -ms-transform: translateX(210%);
+  transform: translateX(210%);
+}
+
+.fowerspopt_swicth_input .slider.round {
+  border-radius: 34px;
+}
+
+.fowerspopt_swicth_input .slider.round:before {
+  border-radius: 50%;
+}
+
+.range3::-webkit-slider-thumb {
+  position: relative;
+  z-index: 2;
+  background-color: #DF9186;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 12px;
+  max-height: 12px;
+  min-width: 12px;
+  max-width: 12px;
+  background-size: cover;
+  border-radius: 50%;
+  transition: 0.2s ease-in-out;
+  transform: rotateZ(var(--thumb-rotate, 0deg));
+}
+
+.range2 input[type="range"]::-webkit-slider-thumb {
+  position: relative;
+  z-index: 0;
+  box-shadow: 0 0 0 1px #df9186 inset, 0 0 0 14px #fefaf9 inset,
+    0 0 0 15px #df9186 inset, 0 0 0 29px #fefaf9 inset, 0 0 0 30px #df9186 inset,
+    0 0 0 45px #fefaf9 inset;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 102px;
+  width: 102px;
+  background-size: cover;
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+  transform: rotateZ(var(--thumb-rotate, 0deg));
+}
+
+.range3 {
+  position: relative;
+  z-index: 2;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  height: 2px;
+}
+
+.range_input_comp input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  background: transparent;
+}
+
+/* global css */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #DFE5EA inset;
+}
