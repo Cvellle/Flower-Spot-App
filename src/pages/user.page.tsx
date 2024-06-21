@@ -2,7 +2,6 @@ import SightingItem from "../components/SightingItem";
 import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
 
 const User = () => {
-  // let sightings = Array.isArray(data?.items) ? data.items : [];
   // mocked data given
   let sightings = mockedISightings;
 

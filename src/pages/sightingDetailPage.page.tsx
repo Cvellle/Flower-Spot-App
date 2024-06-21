@@ -20,7 +20,7 @@ const SightingDetailPage = () => {
     },
   ];
   return (
-    <div className="bg-[#F9F9F9] relative ">
+    <div className="bg-[#F9F9F9] relative">
       <section className="pt-[80px]">
         <div
           style={{
@@ -35,7 +35,7 @@ const SightingDetailPage = () => {
             <LocationSvg height="40" width="30" />
           </div>
           <div className="lg:flex lg:items-center">
-            <div className="w-[80px] rounded-full mt-[22px] lg:mr-[30px]">
+            <div className="w-[80px] md:w-[100px] rounded-full mt-[22px] lg:mr-[30px]">
               <button
                 style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
                 className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
@@ -44,9 +44,7 @@ const SightingDetailPage = () => {
                 Publish Comment
               </button>
             </div>
-            <div className="mt-[64px] ml-[80px]">
-              {/* <LocationSvg height="40" width="30" /> */}
-            </div>
+            <div className="mt-[64px] ml-[80px]"></div>
           </div>
           <div className="flex pt-[22px]">
             <button
@@ -61,7 +59,12 @@ const SightingDetailPage = () => {
           </div>
         </div>
       </section>
-      <section className="mt-[-160px] px-[16px] flex flex-wrap">
+      <section
+        className="lg:max-w-[1180px] mx-[auto] md:bg-[#FFFFFF] mt-[-160px] md:mt-[-80px] px-[16px] md:p-[50px] flex flex-wrap"
+        style={{
+          boxShadow: isTablet ? "0px 15px 30px 0px #0000000D" : "unset",
+        }}
+      >
         <div
           style={{
             backgroundImage: `url(../src/assets/images/blueFl.png)`,
@@ -71,7 +74,7 @@ const SightingDetailPage = () => {
           }}
           className="h-[290px] w-full md:w-[290px] text-[#FFFFFF]"
         ></div>
-        <div className="md:w-[70%]">
+        <div className="md:w-[710px] md:ml-[40px] md:max-h-[290px]">
           <div className="w-full md:flex-wrap">
             <div className="flex items-center mt-[30px] md:w-full">
               <div
@@ -91,7 +94,7 @@ const SightingDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-full h-[170px] mt-[30px] text-[#949EA0] text-[13px] leading-[20px] text-justify">
+          <div className="w-full h-[170px] md:h-[unset] mt-[30px] text-[#949EA0] text-[13px] leading-[20px] text-justify">
             Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων
             "bell") is a species of herbaceous flowering perennial plant of the
             family Campanulaceae, and the only member of the genus Platycodon.
@@ -100,25 +103,25 @@ const SightingDetailPage = () => {
             the balloon-shaped flower buds), Chinese bellflower,[2] or
             platycodon.[2]
             <div className="h-[0.8px] bg-[#E8E9ED] mt-[30px] mb-[20px]"></div>
-          </div>
-        </div>
-        <div className="flex text-[12px] leading-none text-[#949EA0] h-[100%]">
-          <div className="flex items-end mt-[15px] ">
-            <div className="ml-[20px] mr-[30px]">
-              <CommentSVG />
-            </div>{" "}
-            <span>18 Comments</span>
-          </div>
-          <div className="flex items-end mt-[15px]">
-            <div className="ml-[22.69px] mr-[30px]">
-              <HeartSVG />
-            </div>{" "}
-            <span>18 Favorites</span>
+            <div className="flex text-[12px] leading-none text-[#949EA0] h-[100%]">
+              <div className="flex items-end mt-[15px] ">
+                <div className="ml-[20px] mr-[30px]">
+                  <CommentSVG />
+                </div>{" "}
+                <span>18 Comments</span>
+              </div>
+              <div className="flex items-end mt-[15px]">
+                <div className="ml-[22.69px] mr-[30px]">
+                  <HeartSVG />
+                </div>{" "}
+                <span>18 Favorites</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-      <section>
-        <div className="flex px-[16px] justify-between">
+      <section className="md:max-w-[780px] mx-[auto]">
+        <div className="flex px-[16px] md:px-[unset] justify-between">
           <h3 className="mt-[125px] text-[25px] leading-none">14 Comments</h3>
           <button
             onClick={() => {
@@ -134,14 +137,14 @@ const SightingDetailPage = () => {
           </button>
         </div>
       </section>
-      <section className="min-h-screen pt-[35px] flex flex-wrap justify-center pb-[16px]">
+      <section className="min-h-screen pt-[35px] flex flex-wrap justify-center pb-[16px] md:max-w-[780px] mx-[auto]">
         {items?.map((item, i) => (
           <div
             key={i}
-            className="w-[100%] lg:w-[232px]  
+            className="w-[100%]
               px-[16px] py-[8px] lg:m-[10px] bg-[rgba(0, 0, 0, 0.05)]"
           >
-            <div className="lg:h-[498px] flex flex-col">
+            <div className="flex flex-col">
               <div>
                 <div className="flex items-center mt-[23.17px]">
                   <div
@@ -153,10 +156,10 @@ const SightingDetailPage = () => {
                   ></div>
                   <div className="flex flex-col justify-between h-[30px] ml-[20px]">
                     <p className="text-[15px] leading-[15px] text-[#334144] font-[300]">
-                      Miical bebe
+                      Michael bebe
                     </p>
                     <p className="italic text-[12px] leading-[12px] text-[#949EA0]">
-                      Adam asd
+                      ByAdam Moore
                     </p>
                   </div>
                 </div>

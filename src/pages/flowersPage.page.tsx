@@ -1,14 +1,13 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 
 import SearchInputComponent from "../shared/components/SearchInputComponent";
-import useStore from "../store";
 import { useQuery } from "@tanstack/react-query";
 import FlowerItem from "../components/FlowerItem";
 import { getFlowersFunction } from "../api/appApi";
 import { toast } from "react-toastify";
 import { isTablet } from "../shared/constants/screenMatch";
 
-const HomePage = () => {
+const FlowersPage = () => {
   // hooks
   const [filterState, setFilterState] = useState<string>("");
 
@@ -83,4 +82,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default FlowersPage;

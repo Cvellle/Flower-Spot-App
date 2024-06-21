@@ -39,6 +39,7 @@ API.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && error.config.url === "account/me") {
       console.log(11);
+
       let resp = await refreshToken({
         refreshToken: localStorage.getItem("refreshToken"),
       });

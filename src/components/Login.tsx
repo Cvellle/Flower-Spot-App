@@ -2,13 +2,14 @@ import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useStore from "../store";
 import { getMeFn, loginUserFn } from "../api/authApi";
 import FormInput from "./FormInput";
 import { saveTokens } from "../shared/helpers/authHelpers";
 import { useState } from "react";
 import Message from "./Message";
+import { toast } from "react-toastify";
 
 const loginSchema = object({
   email: string()
@@ -34,24 +35,28 @@ const LogIn = ({ successHandler }: ILogInProps) => {
     resolver: zodResolver(loginSchema),
   });
 
+  const { data } = useQuery(["user"], async () => await getMeFn(), {
+    staleTime: 9000000,
+    cacheTime: 9000000,
+    onError(error) {
+      toast.error((error as any).response.data.message, {
+        position: "top-right",
+      });
+    },
+  });
+
   const {
     mutate: loginUser,
-    data,
+    // data,
     isSuccess,
   } = useMutation((userData: LoginInput) => loginUserFn(userData), {
     onSuccess(data) {
       saveTokens(data);
-      let userResponse = async () => {
-        let res = await getMeFn();
-        if (res) {
-          store.setAuthUser(res);
-        }
-      };
-      userResponse();
-      setSuccessMessage(true);
     },
     onError(error: any) {
-      return;
+      toast.error((error as any).response.data.message, {
+        position: "top-right",
+      });
     },
   });
 

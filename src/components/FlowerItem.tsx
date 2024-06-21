@@ -1,12 +1,12 @@
 import useStore from "../store";
 import { useNavigate } from "react-router-dom";
 import { StarSvg } from "../assets/icons/StarSvg";
+import { useAuth } from "../router/useAuth";
 
 const FlowerItem = ({ item }: { item: IFlower }) => {
   // hooks
   const navigate = useNavigate();
-  const store = useStore();
-  const user = store.authUser;
+  const user = useAuth().user;
 
   return (
     <div

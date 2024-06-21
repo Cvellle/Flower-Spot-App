@@ -1,4 +1,3 @@
-import useStore from "../store";
 import { useEffect, useState } from "react";
 import DialogComponent from "../shared/components/DialogComponent";
 import Settings from "./Settings";
@@ -10,18 +9,23 @@ import { isDesktop } from "../shared/constants/screenMatch";
 import { getMeFn } from "../api/authApi";
 import { NavCloseSgv } from "../assets/icons/NavCloseSvg";
 import LogIn from "./Login";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { getTokens } from "../shared/helpers/authHelpers";
 
 const Header = () => {
+  useEffect(() => {
+    // !!getTokens().accessToken && getMeFn();
+  }, []);
+
   const [scrollDir, setScrollDir] = useState("scrolling down");
 
   useEffect(() => {
     const threshold = 0;
     let lastScrollY = window.scrollY;
     let ticking = false;
-
     const updateScrollDir = () => {
       const scrollY = window.scrollY;
-
       if (Math.abs(scrollY - lastScrollY) < threshold) {
         ticking = false;
         return;
@@ -30,30 +34,15 @@ const Header = () => {
       lastScrollY = scrollY > 0 ? scrollY : 0;
       ticking = false;
     };
-
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(updateScrollDir);
         ticking = true;
       }
     };
-
     window.addEventListener("scroll", onScroll);
-
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollDir]);
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      let userResponse = async () => {
-        let res = await getMeFn();
-        if (res) {
-          store.setAuthUser(res);
-        }
-      };
-      userResponse();
-    }
-  }, []);
 
   // types
   enum DialogTypes {
@@ -64,8 +53,8 @@ const Header = () => {
   }
 
   // hooks and consts
-  const store = useStore();
-  const user = store.authUser;
+  const hasToken = useAuth().hasToken;
+  const user = useAuth().user;
   const navigate = useNavigate();
 
   //states
@@ -93,7 +82,7 @@ const Header = () => {
                 style={{
                   boxShadow: isDesktop ? "none" : "0px 15px 30px 0px #0000000D",
                 }}
-                className="h-[80px] pl-[24.72px] pr-[28px] lg:pl-[0] lg:pr-[3.8px] flex relative flex justify-between w-full lg:w-auto 
+                className="h-[80px] pl-[24.72px] pr-[28px] lg:pr-[3.8px] flex relative flex justify-between w-full lg:w-auto 
              lg:block lg:justify-start lg:flex lg:items-center"
               >
                 <div
@@ -206,7 +195,7 @@ const Header = () => {
                       <span>Favorites</span>
                     </Link>
                   </li>
-                  {!useAuth() ? (
+                  {!hasToken ? (
                     <li className="mt-[35px] lg:mt-[0]">
                       <span className="flex items-center cursor-pointer">
                         <span
@@ -220,7 +209,7 @@ const Header = () => {
                       </span>
                     </li>
                   ) : null}
-                  {!useAuth() ? (
+                  {!hasToken ? (
                     <li className="mt-[45px] lg:mt-[0]">
                       <span className="flex items-center cursor-pointer">
                         <span
@@ -236,8 +225,8 @@ const Header = () => {
                     </li>
                   ) : null}
                   <li>
-                    {useAuth() ? (
-                      user ? (
+                    {hasToken ? (
+                      hasToken ? (
                         <div className="flex items-center mt-[35px] lg:mt-[0px]">
                           <p className="flex content-center">
                             {user?.firstName + " " + user?.lastName}

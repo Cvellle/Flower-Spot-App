@@ -45,6 +45,11 @@ const normalRoutes: RouteObject = {
     },
     {
       index: true,
+      path: "flowres",
+      element: <FlowersPage />,
+    },
+    {
+      index: true,
       path: "sightings",
       element: <Sightings />,
     },
