@@ -1,24 +1,15 @@
 import SightingItem from "../components/SightingItem";
+import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
 
 const User = () => {
-  const items = [
-    {
-      image: "../src/assets/images/blueFl.png",
-      desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    },
-    {
-      image: "../src/assets/images/blueFl.png",
-      desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    },
-    {
-      image: "../src/assets/images/blueFl.png",
-      desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    },
-  ];
+  // let sightings = Array.isArray(data?.items) ? data.items : [];
+  // mocked data given
+  let sightings = mockedISightings;
+
   return (
     <>
-      <section className="pt-[80px]">
-        <div className="flex items-start justify-between text-[#334144] pl-[33px] md:pl-[30px] pr-[17px]">
+      <section className="pt-[80px] lg:max-w-[1220px] mx-auto">
+        <div className="flex items-start justify-between text-[#334144] pl-[33px] md:pl-[51px] pr-[17px] md:pr-[71px]">
           <div className="md:flex md:items-center">
             <div
               style={{
@@ -29,10 +20,10 @@ const User = () => {
             ></div>
             <div className="w-auto h-[44px] mt-[35px] items-between">
               <p className="text-[25px] leading-[25px] text-[#334144] font-[300]">
-                Miical bebe
+                Adam Moore
               </p>
               <p className="text-[13px] leading-[13px] text-[#949EA0]">
-                asdasdas
+                47 sightings
               </p>
             </div>
           </div>
@@ -50,9 +41,12 @@ const User = () => {
           </div>
         </div>
       </section>
-      <section className="min-h-screen pt-[35px] flex flex-wrap justify-center pb-[16px]">
-        {items?.map((item: ISighting, i) => (
-          <div key={i}>
+      <section className="pt-[35px] mx-auto lg:max-w-[1220px] mt-[32px] flex flex-wrap justify-start p-[8px]">
+        {sightings?.map((item: ISighting, i) => (
+          <div
+            key={i}
+            className="p-[8px] w-[100%] md:w-[33%] lg:max-w-[25%] px-[8px]"
+          >
             <SightingItem item={item} />
           </div>
         ))}

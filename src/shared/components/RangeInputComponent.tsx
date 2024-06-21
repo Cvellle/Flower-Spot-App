@@ -39,7 +39,7 @@ export default function RangeInputComponent() {
             marginTop: "-10px",
             paddingBottom: "10px",
             marginBottom: "-10px",
-            width: "285px",
+            width: "195px",
           }}
         >
           <input

@@ -31,7 +31,6 @@ const Settings = () => {
             <div className="flex-[33%] ">Turn notifications</div>
             <div className="flex-[33%] flex justify-center">
               <SwitchInputComponent
-                isChecked={false}
                 changeHandler={() => {
                   return;
                 }}

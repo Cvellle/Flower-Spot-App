@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { CloseSvg } from "../../assets/icons/CloseSvg";
 
 export default function DialogComponent({
   isOpen,
@@ -24,11 +25,21 @@ export default function DialogComponent({
               }}
             ></div>
             <div
-              className="fixed md:relative bottom-[0] h-[calc(100vh_-_80px)] md:h-[calc(100vh)] 
-            w-auto mx-auto min-w-full md:min-h-[0] md:min-w-[unset] z-50 md:flex md:items-center md:mt-[71px]
-            bg-[#FFFFFF] md:bg-[none]"
+              className="fixed md:relative bottom-[0] h-[calc(100vh_-_80px)] md:h-[unset] 
+            w-full md:w-auto mx-auto min-w-full md:min-h-[0] md:min-w-[unset] z-50 md:flex md:items-center md:mt-[71px]
+            bg-[#FFFFFF] md:bg-[transparent]"
             >
-              {children}
+              <div className="flex justify-center relative overflow-y-scroll md:overflow-y-hidden">
+                <div
+                  className="absolute top-[20px] right-[20px] cursor-pointer"
+                  onClick={() => {
+                    closeHandler();
+                  }}
+                >
+                  <CloseSvg />
+                </div>
+                {children}
+              </div>
             </div>
           </div>
           <div className="opacity-25 fixed z-45 inset-0 bg-black"></div>

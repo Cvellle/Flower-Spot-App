@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 
 import SearchInputComponent from "../shared/components/SearchInputComponent";
 import useStore from "../store";
@@ -6,53 +6,51 @@ import { useQuery } from "@tanstack/react-query";
 import FlowerItem from "../components/FlowerItem";
 import { getFlowersFunction } from "../api/appApi";
 import { toast } from "react-toastify";
+import { isTablet } from "../shared/constants/screenMatch";
 
 const HomePage = () => {
+  // hooks
   const store = useStore();
+  const [filterState, setFilterState] = useState<string>("");
+
+  // query hook
   const { data, isLoading } = useQuery(
     ["flowers"],
     async (f: any = {}) => await getFlowersFunction(f),
     {
-      select(data) {
-        return data;
-      },
       onError(error) {
-        store.setRequestLoading(false);
-        if (Array.isArray((error as any).response.data.error)) {
-          (error as any).response.data.error.forEach((el: any) =>
-            toast.error(el.message, {
-              position: "top-right",
-            })
-          );
-        } else {
-          toast.error((error as any).response.data.message, {
-            position: "top-right",
-          });
-        }
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
       },
     }
   );
 
   let flowers = Array.isArray(data?.items) ? data.items : [];
 
+  // effect
   useEffect(() => {
     getFlowersFunction({});
-    let flowers = Array.isArray(data?.items) ? data : [];
-  }, [data]);
+  }, []);
 
   return (
     <div className="min-h-screen">
       <section className="pt-[80px]">
         <div
-          style={{ backgroundImage: `url(./src/assets/images/purpleFl.png)` }}
-          className="h-[500px] text-[#FFFFFF]"
+          style={{
+            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(./src/assets/images/purpleFl.png)`,
+            backgroundSize: isTablet ? "100%" : "200%",
+            backgroundPosition: "0% 50%",
+            backgroundRepeat: "no-repeat",
+          }}
+          className="min-h-[500px] text-[#FFFFFF]"
         >
           <div className="width-full flex justify-center">
-            <h2 className="mt-[184px] mb-[25px] text-[40px] text-center w-[385px] md:w-[unset] leading-none h-[80px] block leading-[40px]">
+            <h2 className="mt-[104px] lg:mt-[154px] text-[40px] text-center w-[385px] md:w-[unset] leading-none h-[80px] md:h-[unset] block leading-none">
               Discover flowers around you
             </h2>
           </div>
-          <p className="text-center text-[17px] leading-none h-[17px] mt-[14px]">
+          <p className="mt-[25px] md:mt-[15px] text-center text-[17px] leading-none h-[17px]">
             Explore between more than 8.427 sightings
           </p>
           <div
@@ -61,19 +59,26 @@ const HomePage = () => {
           >
             <SearchInputComponent
               placeholder={"Looking for something specific?"}
+              changeHandler={(value: string, event: SyntheticEvent) => {
+                event && setFilterState(value);
+              }}
             />
           </div>
         </div>
       </section>
       <section className="mx-auto lg:max-w-[1220px] mt-[32px] flex flex-wrap justify-start p-[8px]">
-        {flowers?.map((item: IFlower) => (
-          <div
-            key={item.id}
-            className="p-[8px] w-[50%] md:w-[33%] lg:max-w-[25%]"
-          >
-            <FlowerItem item={item} />
-          </div>
-        ))}
+        {flowers
+          ?.filter((filterItem: IFlower) =>
+            filterItem.name.includes(filterState)
+          )
+          ?.map((flower: IFlower) => (
+            <div
+              key={flower.id}
+              className="p-[8px] w-[50%] md:w-[33%] lg:max-w-[25%]"
+            >
+              <FlowerItem item={flower} />
+            </div>
+          ))}
       </section>
     </div>
   );

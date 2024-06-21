@@ -1,10 +1,11 @@
 export interface IUser {
-  [key: string]: any;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
-  photo: string;
-  id: string;
+  pictureUrl: string;
+  dateOfBirth: string;
+  sightingsNum: number;
 }
 
 export interface GenericResponse {
@@ -14,14 +15,7 @@ export interface GenericResponse {
   message: string;
 }
 
-export interface ILoginResponse {
+export interface IRegisterResponse {
   accessToken: string;
   refreshToken: string;
-}
-
-export interface IUserResponse {
-  status: string;
-  data: {
-    user: IUser;
-  };
 }

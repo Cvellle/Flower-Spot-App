@@ -5,6 +5,7 @@ import useStore from "../store";
 import { getSightingsFunction } from "../api/appApi";
 import SightingItem from "../components/SightingItem";
 import { useNavigate } from "react-router-dom";
+import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
 
 const FlowerPage = () => {
   // hooks
@@ -15,25 +16,10 @@ const FlowerPage = () => {
     ["sightings"],
     async (s: any = {}) => await getSightingsFunction({}),
     {
-      select(data) {
-        return data;
-      },
-      onSuccess(data) {
-        store.setRequestLoading(false);
-      },
       onError(error) {
-        store.setRequestLoading(false);
-        if (Array.isArray((error as any).response.data.error)) {
-          (error as any).response.data.error.forEach((el: any) =>
-            toast.error(el.message, {
-              position: "top-right",
-            })
-          );
-        } else {
-          toast.error((error as any).response.data.message, {
-            position: "top-right",
-          });
-        }
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
       },
     }
   );
@@ -42,46 +28,9 @@ const FlowerPage = () => {
     getSightingsFunction({});
   }, []);
 
-  let sightings = Array.isArray(data?.items) ? data.items : [];
-
-  const items: ISighting[] = [
-    {
-      id: "string",
-      name: "Sight 1",
-      authorId: "Nikola Cvetic",
-      flowerId: "string",
-      latitude: 47.110579,
-      longitude: 9.227568,
-      commentCount: 0,
-      likeCount: 3,
-      pictureUrl: "../src/assets/images/blueFl.png",
-      description: "Some description 1. Text says this, and so on...",
-    },
-    {
-      id: "string",
-      name: "Sight 1",
-      authorId: "Nikola Cvetic",
-      flowerId: "string",
-      latitude: 47.110579,
-      longitude: 9.227568,
-      commentCount: 0,
-      likeCount: 3,
-      pictureUrl: "../src/assets/images/blueFl.png",
-      description: "Some description 1. Text says this, and so on...",
-    },
-    {
-      id: "string",
-      name: "Sight 1",
-      authorId: "Nikola Cvetic",
-      flowerId: "string",
-      latitude: 47.110579,
-      longitude: 9.227568,
-      commentCount: 0,
-      likeCount: 3,
-      pictureUrl: "../src/assets/images/blueFl.png",
-      description: "Some description 1. Text says this, and so on...",
-    },
-  ];
+  // let sightings = Array.isArray(data?.items) ? data.items : [];
+  // mocked data given
+  let sightings = mockedISightings;
 
   return (
     <>
@@ -152,7 +101,7 @@ const FlowerPage = () => {
         </div>
       </section>
       <section className="w-full pt-[20px] flex flex-wrap justify-center pb-[16px]">
-        {items?.map((item: ISighting, i) => (
+        {sightings?.map((item: ISighting, i) => (
           <div key={i} className="w-full">
             <SightingItem item={item} />
           </div>

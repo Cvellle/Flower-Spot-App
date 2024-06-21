@@ -35,7 +35,7 @@ const normalRoutes: RouteObject = {
     },
     {
       index: true,
-      path: "sighting/:sightingId",
+      path: "sightings/:sightingId",
       element: <SightingDetailPage />,
     },
     {

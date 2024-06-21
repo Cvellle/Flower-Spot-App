@@ -2,6 +2,7 @@ import { CommentSVG } from "../assets/icons/Comment";
 import { HeartSVG } from "../assets/icons/HeartSvg";
 import { LocationSvg } from "../assets/icons/LocationSvg";
 import TextareaComponent from "../components/TextareaComponent";
+import { isTablet } from "../shared/constants/screenMatch";
 
 const SightingDetailPage = () => {
   const items = [
@@ -19,22 +20,22 @@ const SightingDetailPage = () => {
     },
   ];
   return (
-    <div className="bg-[#F9F9F9] relative">
-      <section>
+    <div className="bg-[#F9F9F9] relative ">
+      <section className="pt-[80px]">
         <div
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(../src/assets/images/map_sm.png)`,
-            backgroundSize: "200% auto",
+            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(../../src/assets/images/map_sm.png)`,
+            backgroundSize: isTablet ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "top 0% left 50%",
           }}
-          className="h-[95.23vw] flex items-start justify-between text-[#334144] px-[40px] md:pl-[30px]"
+          className="h-[95.23vw] lg:h-[32.78vw] flex items-start justify-between lg:justify-end text-[#334144] px-[40px] lg:pt-[244px] lg:pl-[30px]"
         >
-          <div className="absolute left-[28.57%] top-[32.61vw]">
+          <div className="absolute left-[28.57%] top-[51.42vw]">
             <LocationSvg height="40" width="30" />
           </div>
-          <div className="md:flex md:items-center">
-            <div className="w-[80px] rounded-full mt-[22px] md:mr-[30px]">
+          <div className="lg:flex lg:items-center">
+            <div className="w-[80px] rounded-full mt-[22px] lg:mr-[30px]">
               <button
                 style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
                 className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
@@ -62,36 +63,44 @@ const SightingDetailPage = () => {
       </section>
       <section className="mt-[-160px] px-[16px] flex flex-wrap">
         <div
-          style={{ backgroundImage: `url(../src/assets/images/purpleFl.png)` }}
-          className="h-[290px] w-full text-[#FFFFFF]"
+          style={{
+            backgroundImage: `url(../src/assets/images/blueFl.png)`,
+            backgroundSize: "170% auto",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "top 0% left 0%",
+          }}
+          className="h-[290px] w-full md:w-[290px] text-[#FFFFFF]"
         ></div>
-        <div className="w-full">
-          <div className="flex items-center mt-[30px]">
-            <div
-              style={{
-                backgroundImage: `url(../src/assets/images/purpleFl.png)`,
-              }}
-              className="w-[50px] h-[50px] rounded-full"
-            ></div>
-            <div className="flex flex-col justify-center h-[50px] ml-[26.45px]">
-              <p className="text-[25px] leading-[25px] text-[#334144] font-[300]">
-                Miical bebe
-              </p>
-              <p className="italic text-[14px] leading-[14px] text-[#949EA0]">
-                Adam asd
-              </p>
+        <div className="md:w-[70%]">
+          <div className="w-full md:flex-wrap">
+            <div className="flex items-center mt-[30px] md:w-full">
+              <div
+                style={{
+                  backgroundImage: `url(../src/assets/images/user1.png)`,
+                  backgroundSize: "100% 100%",
+                }}
+                className="w-[50px] h-[50px] rounded-full"
+              ></div>
+              <div className="flex flex-col justify-center h-[50px] ml-[26.45px]">
+                <p className="text-[25px] leading-[25px] text-[#334144] font-[300]">
+                  Michael bebe
+                </p>
+                <p className="italic text-[14px] leading-[14px] text-[#949EA0]">
+                  By Adam Moore
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="w-full h-[170px] mt-[30px] text-[#949EA0] text-[13px] leading-[20px] text-justify">
-          Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων
-          "bell") is a species of herbaceous flowering perennial plant of the
-          family Campanulaceae, and the only member of the genus Platycodon. It
-          is native to East Asia (China, Korea, Japan, and the Russian Far
-          East).[1] It is commonly known as balloon flower[2][3] (referring to
-          the balloon-shaped flower buds), Chinese bellflower,[2] or
-          platycodon.[2]
-          <div className="h-[0.8px] bg-[#E8E9ED] mt-[30px] mb-[20px]"></div>
+          <div className="w-full h-[170px] mt-[30px] text-[#949EA0] text-[13px] leading-[20px] text-justify">
+            Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων
+            "bell") is a species of herbaceous flowering perennial plant of the
+            family Campanulaceae, and the only member of the genus Platycodon.
+            It is native to East Asia (China, Korea, Japan, and the Russian Far
+            East).[1] It is commonly known as balloon flower[2][3] (referring to
+            the balloon-shaped flower buds), Chinese bellflower,[2] or
+            platycodon.[2]
+            <div className="h-[0.8px] bg-[#E8E9ED] mt-[30px] mb-[20px]"></div>
+          </div>
         </div>
         <div className="flex text-[12px] leading-none text-[#949EA0] h-[100%]">
           <div className="flex items-end mt-[15px] ">
@@ -129,15 +138,16 @@ const SightingDetailPage = () => {
         {items?.map((item, i) => (
           <div
             key={i}
-            className="w-[100%] md:w-[232px]  
-              px-[16px] py-[8px] md:m-[10px] bg-[rgba(0, 0, 0, 0.05)]"
+            className="w-[100%] lg:w-[232px]  
+              px-[16px] py-[8px] lg:m-[10px] bg-[rgba(0, 0, 0, 0.05)]"
           >
-            <div className="md:h-[498px] flex flex-col">
+            <div className="lg:h-[498px] flex flex-col">
               <div>
                 <div className="flex items-center mt-[23.17px]">
                   <div
                     style={{
-                      backgroundImage: `url(../src/assets/images/purpleFl.png)`,
+                      backgroundImage: `url(../src/assets/images/user1.png)`,
+                      backgroundSize: "100% 100%",
                     }}
                     className="w-[40px] h-[40px] rounded-full"
                   ></div>
@@ -165,7 +175,7 @@ const SightingDetailPage = () => {
           </div>
         ))}
         <form className="w-full px-[16px]">
-          <TextareaComponent name={"comment"} />
+          {/* <TextareaComponent name={"comment"} /> */}
           <button
             type="submit"
             style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}

@@ -5,6 +5,8 @@ import { LocationSvg } from "../assets/icons/LocationSvg";
 import useStore from "../store";
 import { useEffect } from "react";
 import { getSightingsFunction } from "../api/appApi";
+import { toast } from "react-toastify";
+import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
 
 const Sightings = () => {
   const store = useStore();
@@ -12,50 +14,22 @@ const Sightings = () => {
     ["sightings"],
     async (s: any = {}) => await getSightingsFunction(s),
     {
-      select(data) {
-        return data;
-      },
-      onSuccess(data) {
-        // store.setAuthUser(data);
-        // store.setRequestLoading(false);
-      },
       onError(error) {
-        store.setRequestLoading(false);
-        if (Array.isArray((error as any).response.data.error)) {
-          // (error as any).response.data.error.forEach((el: any) =>
-          //   // toast.error(el.message, {
-          //   //   position: "top-right",
-          //   // })
-          // );
-        } else {
-          // toast.error((error as any).response.data.message, {
-          //   position: "top-right",
-          // });
-        }
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
       },
     }
   );
 
   useEffect(() => {
-    getSightingsFunction();
+    getSightingsFunction({});
   }, []);
 
-  let sightings = Array.isArray(data?.items) ? data.items : [];
+  // let sightings = Array.isArray(data?.items) ? data.items : [];
+  // mocked data given
+  let sightings = mockedISightings;
 
-  const items = [
-    // {
-    //   image: "../src/assets/images/blueFl.png",
-    //   desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    // },
-    // {
-    //   image: "../src/assets/images/blueFl.png",
-    //   desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    // },
-    // {
-    //   image: "../src/assets/images/blueFl.png",
-    //   desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
-    // },
-  ];
   return (
     <>
       <section className="min-h-screen pt-[35px] flex flex-wrap justify-center pb-[16px]">

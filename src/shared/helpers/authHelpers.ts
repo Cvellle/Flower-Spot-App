@@ -1,4 +1,7 @@
-export const saveTokens = (resp) => {
+export const saveTokens = (resp: {
+  accessToken: string;
+  refreshToken: string;
+}) => {
   localStorage.setItem("accessToken", resp.accessToken);
   localStorage.setItem("refreshToken", resp.refreshToken);
 };

@@ -1,15 +1,15 @@
 import useStore from "../store";
-
 import { useEffect, useState } from "react";
 import DialogComponent from "../shared/components/DialogComponent";
 import Settings from "./Settings";
-import LogIn from "../features/auth/login";
-import SignUp from "../features/auth/sigunp";
+import SignUp from "./Signup";
 import { useAuth } from "../router/useAuth";
-import Profile from "../features/profile/Profile";
-import { Link } from "react-router-dom";
-import { isDesktop, isTablet } from "../shared/constants/screenMatch";
-import { NavCloseSgv } from "../assets/icons/navCloseSvg";
+import Profile from "./Profile";
+import { Link, useNavigate } from "react-router-dom";
+import { isDesktop } from "../shared/constants/screenMatch";
+import { getMeFn } from "../api/authApi";
+import { NavCloseSgv } from "../assets/icons/NavCloseSvg";
+import LogIn from "./Login";
 
 const Header = () => {
   const [scrollDir, setScrollDir] = useState("scrolling down");
@@ -43,6 +43,18 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [scrollDir]);
 
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      let userResponse = async () => {
+        let res = await getMeFn();
+        if (res) {
+          store.setAuthUser(res);
+        }
+      };
+      userResponse();
+    }
+  }, []);
+
   // types
   enum DialogTypes {
     SignUp = "signUp",
@@ -54,9 +66,12 @@ const Header = () => {
   // hooks and consts
   const store = useStore();
   const user = store.authUser;
+  const navigate = useNavigate();
 
   //states
-  const [showModal, setShowModal] = useState<DialogTypes>();
+  const [showModal, setShowModal] = useState<DialogTypes | undefined>(
+    undefined
+  );
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   let headerVisible = !navbarOpen
@@ -65,7 +80,7 @@ const Header = () => {
 
   return (
     <>
-      {headerVisible ? (
+      {showModal !== undefined || headerVisible ? (
         <header className="fixed w-full z-[100] lg:z-[10] [&_*]:border-[none] [&_*]:shadow-[none]">
           <nav
             style={{
@@ -78,10 +93,16 @@ const Header = () => {
                 style={{
                   boxShadow: isDesktop ? "none" : "0px 15px 30px 0px #0000000D",
                 }}
-                className="h-[80px] pl-[21px] pr-[28px] flex relative flex justify-between w-full lg:w-auto 
+                className="h-[80px] pl-[24.72px] pr-[28px] lg:pl-[0] lg:pr-[3.8px] flex relative flex justify-between w-full lg:w-auto 
              lg:block lg:justify-start lg:flex lg:items-center"
               >
-                <div className="flex items-center">
+                <div
+                  onClick={() => {
+                    navigate("/");
+                    setShowModal(undefined);
+                  }}
+                  className="flex items-center cursor-pointer"
+                >
                   <div className={"w-[30px] h-[30px]"}>
                     <svg
                       width="30"
@@ -127,7 +148,9 @@ const Header = () => {
                 {navbarOpen ? (
                   <div
                     className="my-auto"
-                    onClick={() => setNavbarOpen(!navbarOpen)}
+                    onClick={() => {
+                      setNavbarOpen(!navbarOpen);
+                    }}
                   >
                     <NavCloseSgv />
                   </div>
@@ -145,7 +168,7 @@ const Header = () => {
               </div>
               <div
                 className={
-                  "pl-[21px] pr-[28px] w-full lg:w-[unset] overflow-scroll lg:overflow-hidden min-h-[calc(100vh_-_80px)] lg:min-h-[unset] bg-[#FFFFFF] lg:flex" +
+                  "pl-[21px] lg:pl-[0] pr-[28px] lg:pr-[20px] w-full lg:w-[unset] overflow-scroll lg:overflow-hidden min-h-[calc(100vh_-_80px)] lg:min-h-[unset] bg-[#FFFFFF] lg:flex" +
                   (navbarOpen ? " flex" : " hidden")
                 }
               >
@@ -155,10 +178,11 @@ const Header = () => {
                  lg:[&_li]:ml-[50px]"
                 >
                   <li>
-                    <Link to={"/flowers"} className="flex items-center">
+                    <Link to={"/"} className="flex items-center">
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
+                          setShowModal(undefined);
                         }}
                       >
                         Flowers
@@ -170,6 +194,7 @@ const Header = () => {
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
+                          setShowModal(undefined);
                         }}
                       >
                         Latest Sightings
@@ -212,20 +237,24 @@ const Header = () => {
                   ) : null}
                   <li>
                     {useAuth() ? (
-                      <div className="flex items-center">
-                        <span>{user?.firstName + " " + user?.lastName}</span>
-                        <div
-                          style={{
-                            background: `url(../src/assets/images/user.png) no-repeat`,
-                            backgroundSize: "40px 40px",
-                          }}
-                          className="ml-[15px] mt-[35px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"
-                          onClick={() => {
-                            setShowModal(DialogTypes.Profile);
-                            setNavbarOpen(false);
-                          }}
-                        ></div>
-                      </div>
+                      user ? (
+                        <div className="flex items-center mt-[35px] lg:mt-[0px]">
+                          <p className="flex content-center">
+                            {user?.firstName + " " + user?.lastName}
+                          </p>
+                          <div
+                            style={{
+                              background: `url(../src/assets/images/user.png) no-repeat`,
+                              backgroundSize: "40px 40px",
+                            }}
+                            className="ml-[15px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"
+                            onClick={() => {
+                              setShowModal(DialogTypes.Profile);
+                              setNavbarOpen(false);
+                            }}
+                          ></div>
+                        </div>
+                      ) : null
                     ) : (
                       <button
                         style={{
@@ -257,7 +286,7 @@ const Header = () => {
             closeHandler={() => setShowModal(undefined)}
           >
             <SignUp
-              sucessHandler={() => {
+              successHandler={() => {
                 setShowModal(DialogTypes.LogIn);
                 setNavbarOpen(false);
               }}
@@ -269,7 +298,12 @@ const Header = () => {
             isOpen={true}
             closeHandler={() => setShowModal(undefined)}
           >
-            <LogIn />
+            <LogIn
+              successHandler={() => {
+                setShowModal(undefined);
+                setShowModal(DialogTypes.Profile);
+              }}
+            />
           </DialogComponent>
         ) : null}
         {showModal === DialogTypes.Profile ? (
@@ -278,7 +312,7 @@ const Header = () => {
             closeHandler={() => setShowModal(undefined)}
           >
             <Profile
-              sucessHandler={() => {
+              successHandler={() => {
                 setShowModal(undefined);
               }}
             />

@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 export default function SwitchInputComponent({
-  isChecked = false,
+  isChecked,
   changeHandler,
 }: {
   isChecked?: boolean;

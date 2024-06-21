@@ -1,5 +1,6 @@
 import axios from "axios";
-import { refreshToken } from "../api/authApi";
+import { getMeFn, refreshToken } from "../api/authApi";
+import { saveTokens } from "../shared/helpers/authHelpers";
 
 export const apiURL =
   "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online";
@@ -19,7 +20,6 @@ API.interceptors.request.use((config) => {
   try {
     const token = localStorage.getItem("accessToken");
     if (config.headers) {
-      config.headers["x-access-token"] = token;
       token &&
         config.url === "account/me" &&
         (config.headers.Authorization = `Bearer ${token}`);
@@ -27,7 +27,7 @@ API.interceptors.request.use((config) => {
 
     return config;
   } catch (err) {
-    return config;
+    return err;
   }
 });
 
@@ -37,15 +37,33 @@ API.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
+    if (error.response.status === 401 && error.config.url === "account/me") {
+      console.log(11);
+      let resp = await refreshToken({
+        refreshToken: localStorage.getItem("refreshToken"),
+      });
+      if (resp) {
+        API.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${resp.accessToken}`;
+        saveTokens(resp);
+        getMeFn();
+      }
+    }
     if (error.response.status === 401 && originalRequest._retry) {
+      console.log(22);
       originalRequest._retry = true;
       const resp = await refreshToken({
         refreshToken: localStorage.getItem("refreshToken"),
       });
-      const access_token = resp.response.accessToken;
-      localStorage.setItem("accessToken", resp.response.accessToken);
-      localStorage.setItem("refreshToken", resp.response.refreshToken);
-      API.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+      if (resp) {
+        saveTokens(resp);
+        API.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${resp.accessToken}`;
+        getMeFn();
+      }
+
       return API(originalRequest);
     }
     return Promise.reject(error);

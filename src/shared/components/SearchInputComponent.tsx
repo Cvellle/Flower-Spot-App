@@ -1,23 +1,26 @@
+// @ts-nocheck
 import { SyntheticEvent, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import { SearchSvg } from "../../assets/icons/SearchSvg";
 
 export default function SearchInputComponent({
   placeholder = "",
+  changeHandler,
 }: {
   placeholder?: string;
+  changeHandler: (value: string, event: SyntheticEvent) => void;
 }) {
   const [value, setValue] = useState<string>("");
 
-  const debounceFn = useMemo(() => debounce(handleDebounceFn, 1000), []);
+  const debounceFn = useMemo(() => debounce(handleDebounceFn, 300), []);
 
-  function handleDebounceFn(inputValue: any) {
-    alert(inputValue);
+  function handleDebounceFn(inputValue: any, event: SyntheticEvent) {
+    changeHandler(inputValue, event);
   }
 
   function handleChange(event: SyntheticEvent) {
     setValue(event.target.value);
-    debounceFn(event.target.value);
+    debounceFn(event.target.value, event);
   }
 
   return (

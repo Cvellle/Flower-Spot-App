@@ -8,30 +8,30 @@ const SightingItem = ({ item }: { item: ISighting }) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="w-[100%] md:w-[232px]  
-              px-[16px] py-[8px] md:m-[10px] bg-[rgba(0, 0, 0, 0.05)]"
-    >
+    <div className="w-[100%] bg-[rgba(0, 0, 0, 0.05">
       <div
         style={{ boxShadow: "0px 15px 30px 0px #0000000D" }}
-        className="h-[439px] md:h-[498px] flex flex-col"
+        className="h-[439px] md:h-[498px] lg:h-[500px] flex flex-col"
       >
         <div className="mt-[20px] mb-[-42.4px] relative z-[10]">
           <div className="flex items-center pl-[20px] rounded-[1rem] ml-[20px] w-[136px] h-[22.04px] bg-[white]">
             <LocationSvg height="14" width="10" />
             <span className="ml-[10px] text-[#FBDDCE] text-[12px]">
-              San Fra
+              San Francisco
             </span>
           </div>
         </div>
         <div>
           <div
+            onClick={() => {
+              navigate("/sightings/" + item.id);
+            }}
             style={{
               backgroundImage: `url(${"../src/assets/images/blueFl.png"})`,
               backgroundSize: `170%`,
               backgroundPosition: `10% 10%`,
             }}
-            className="w-full h-[246.83px] adjustable_img"
+            className="w-full h-[246.83px] md:h-[280px] adjustable_img cursor-pointer"
           ></div>
           <div className="flex items-center mt-[23.17px]">
             <div
@@ -43,14 +43,14 @@ const SightingItem = ({ item }: { item: ISighting }) => {
             ></div>
             <div className="flex flex-col justify-between h-[30px] ml-[43.45px]">
               <p className="text-[15px] leading-[15px] text-[#334144] font-[300]">
-                Miical bebe
+                Balcony Flower
               </p>
               <p className="italic text-[12px] leading-[12px] text-[#949EA0]">
-                Adam asd
+                by Adam Moore
               </p>
             </div>
           </div>
-          <div className="flex justify-center mt-[15px] px-[27.64px]">
+          <div className="flex justify-center mt-[15px] px-[27.64px] md:px-[16.5px] flex-wrap">
             <p
               className="italic text-[12px] leading-[14.63px] text-[#949EA0]
              w-full h-[54.65px] font-montserrat tracking-[1.6px] text-justify
@@ -58,20 +58,18 @@ const SightingItem = ({ item }: { item: ISighting }) => {
             >
               {item?.description}
             </p>
-          </div>
-          <div className="flex justify-center">
-            <div className="h-[0.8px] w-[331.71px] bg-[#E8E9ED] mt-[15px]"></div>
+            <div className="h-[0.8px] w-full bg-[#E8E9ED] mt-[15px]"></div>
           </div>
         </div>
         <div className="flex justify-between text-[12px] leading-none text-[#949EA0] h-[100%]">
           <div className="flex-[50%] flex items-center">
-            <div className="ml-[20px] mr-[30px]">
+            <div className="ml-[20px] mr-[30px] md:m-[10px] lg:mx-[15%]">
               <CommentSVG />
             </div>{" "}
             <span>18 Comments</span>
           </div>
           <div className="flex-[50%] flex flex items-center">
-            <div className="ml-[20px] mr-[30px]">
+            <div className="ml-[20px] mr-[30px] md:mx-[10px] lg:mx-[15%]">
               <HeartSVG />
             </div>{" "}
             <span>18 Favorites</span>

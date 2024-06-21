@@ -13,12 +13,14 @@ const months = [
   "Dec",
 ];
 
-export const getDate = (date: string) => {
-  return (
-    months[new Date(date).getUTCMonth()] +
-    " " +
-    new Date(date).getUTCDate() +
-    ", " +
-    new Date(date).getUTCFullYear()
-  );
+export const getDate = (date: string | undefined) => {
+  if (date) {
+    return (
+      months[new Date(date).getUTCMonth()] +
+      " " +
+      new Date(date).getUTCDate() +
+      ", " +
+      new Date(date).getUTCFullYear()
+    );
+  }
 };

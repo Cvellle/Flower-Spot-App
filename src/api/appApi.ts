@@ -1,24 +1,29 @@
 import { API } from "../services/axiosService";
 
-export const getFlowersFunction = async (filters: {
-  name?: string;
-  latinName?: string;
-  genus?: string;
-  authorId?: string;
-}) => {
-  const response = await API.get<{ items: IFlower[] }>(
-    `flowers`
-    // ?name=${filters.name}&latinName=${filters.latinName}&genus=${filters.genus}&autorId=${filters.authorId}
-  );
+export const getFlowersFunction = async (
+  filters:
+    | {
+        name?: string;
+        latinName?: string;
+        genus?: string;
+        authorId?: string;
+      }
+    | {}
+) => {
+  const response = await API.get<{ items: IFlower[] }>(`flowers`);
   return response.data;
 };
 
-export const getSightingsFunction = async (filters: {
-  description?: string;
-  name?: string;
-  flowerId?: string;
-  authorId?: string;
-}) => {
+export const getSightingsFunction = async (
+  filters:
+    | {
+        description?: string;
+        name?: string;
+        flowerId?: string;
+        authorId?: string;
+      }
+    | {}
+) => {
   const response = await API.get<IFlower[]>(`sightings`);
   return response.data;
 };
