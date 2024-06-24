@@ -20,8 +20,7 @@
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.8",
     "tailwind-merge": "^1.6.0",
-    "zod": "^3.19.1",
-    "zustand": "^4.1.1"
+    "zod": "^3.19.1"
   },
   "jest": {
     "testEnvironment": "jsdom"
