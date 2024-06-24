@@ -40,7 +40,9 @@ Settings link provided in header on desktop - to see it, since it is done.
 
 All of the routes are done - see in the: src\router\index.tsx
 
-Flower and Sighting items, user icons in items, and add new sighting buttons are clickable
+Flower and Sighting items, user icons in items, and add new sighting buttons are clickable.
+
+For sightings list mocked data is given. Flowers list come from backend.
 
 ## Stack
 
