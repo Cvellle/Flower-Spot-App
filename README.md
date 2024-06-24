@@ -44,6 +44,8 @@ Flower and Sighting items, user icons in items, and add new sighting buttons are
 
 For sightings list mocked data is given. Flowers list come from backend.
 
+Search input works - form input, textarea, range, switch and search inputs are written as reusable componentes
+
 ## Stack
 
 **1.** **React**
