@@ -1,8 +1,14 @@
 # Flower-Spot-App
 
-## Terminal instructions
+## Unzip and open
 
-:rocket:
+Unzip the folder, than type in the folder where is the project:
+
+```
+cd Flower-Spot-App
+```
+
+## Terminal instructions - install and start
 
 ```
 npm install
@@ -12,13 +18,23 @@ npm install
 npm run dev
 ```
 
-## Test
-
-:sparkles:
+## Testing
 
 ```
 npm run test
 ```
+
+## Git - check is it a git folder
+
+```
+git rev-parse --is-inside-work-tree
+```
+
+## Additional info
+
+Tests are in tests folder.
+
+Settings link provided in header on desktop - to see it, since it is done.
 
 ## Stack
 
@@ -29,3 +45,5 @@ npm run test
 **3.** **Axios** - interceptors
 
 **4.** **Other** - jest, loadash, deboubce, hiding header
+
+:sparkles:

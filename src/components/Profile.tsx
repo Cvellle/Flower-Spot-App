@@ -1,6 +1,7 @@
 import { removeTokens } from "../shared/helpers/authHelpers";
 import { getDate } from "../shared/helpers/timeHelpers";
 import { useAuth } from "../router/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface IProfile {
   successHandler: (data?: any) => void;
@@ -8,10 +9,12 @@ interface IProfile {
 
 const Profile = ({ successHandler }: IProfile) => {
   const user = useAuth().user;
+  const navigate = useNavigate();
 
   const logoutUserHandler = () => {
     removeTokens();
     successHandler();
+    navigate("/");
   };
 
   return (
