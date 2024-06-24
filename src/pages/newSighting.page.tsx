@@ -12,6 +12,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { addNewSightingFn } from "../api/appApi";
 import { isDesktop } from "../shared/constants/screenMatch";
+import { toast } from "react-toastify";
 
 export type INewSightingInputs = TypeOf<typeof registerSchema>;
 
@@ -37,17 +38,17 @@ const NewSighting = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const {
-    mutate: addSighting,
-    data,
-    isSuccess,
-  } = useMutation((sightingData: any) => addNewSightingFn(sightingData), {
-    onMutate(variables) {},
-    onSuccess(data) {},
-    onError(error: any) {
-      return;
-    },
-  });
+  // left here as an example - cors protected
+  const { mutate: addSighting, data } = useMutation(
+    (sightingData: any) => addNewSightingFn(sightingData),
+    {
+      onError(error) {
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
+      },
+    }
+  );
 
   const {
     reset,

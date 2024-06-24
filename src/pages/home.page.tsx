@@ -11,9 +11,9 @@ const HomePage = () => {
   const [filterState, setFilterState] = useState<string>("");
 
   // query hook
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["flowers"],
-    async (f?: any) => await getFlowersFunction(f),
+    async () => await getFlowersFunction(),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {

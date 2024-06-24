@@ -12,7 +12,7 @@ const FlowersPage = () => {
   // query hook
   const { data, isLoading } = useQuery(
     ["flowers"],
-    async (f: any = {}) => await getFlowersFunction(f),
+    async () => await getFlowersFunction(),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {

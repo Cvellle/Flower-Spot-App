@@ -43,7 +43,7 @@ const Sightings = () => {
             {isDesktop ? (
               <button
                 onClick={() => {
-                  navigate("/flower/1/newSighting");
+                  navigate("/flower/1/new-sighting");
                 }}
                 style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
                 className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
@@ -67,7 +67,7 @@ const Sightings = () => {
         <div className="w-full flex">
           <button
             onClick={() => {
-              navigate("/flower/1/newSighting");
+              navigate("/flower/1/new-sighting");
             }}
             style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
             className="my-[60px] mx-auto bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]

@@ -8,9 +8,8 @@ import FlowersPage from "../pages/flowersPage.page";
 import SightingDetailPage from "../pages/sightingDetailPage.page";
 import NewSighting from "../pages/newSighting.page";
 import Sightings from "../pages/sightings.page";
-import Favorites from "../pages/favorites.page";
 
-const normalRoutes: RouteObject = {
+const protectedRoutes: RouteObject = {
   path: "*",
   element: <Layout />,
   children: [
@@ -51,11 +50,11 @@ const normalRoutes: RouteObject = {
     {
       index: true,
       path: "favorites",
-      element: <Favorites />,
+      element: <Navigate to="/" />,
     },
   ],
 };
 
-const routes: RouteObject[] = [normalRoutes];
+const routes: RouteObject[] = [protectedRoutes];
 
 export default routes;

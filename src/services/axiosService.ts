@@ -9,16 +9,27 @@ export const API = axios.create({
   baseURL: apiURL,
   headers: {
     "Access-Control-Allow-Origin": "*",
-    Acept: "application/json",
+    Accept: "application/json",
     "Content-Type": "application/json",
   },
 });
+
+enum BareerRoutesEnum {
+  Me = "account/me",
+}
+
+const bareerRoutesArray: string[] = [BareerRoutesEnum.Me];
 
 // request
 API.interceptors.request.use((config) => {
   try {
     const token = localStorage.getItem("accessToken");
-    if (config.headers && token && config.url === "account/me") {
+    if (
+      config.url &&
+      config.headers &&
+      token &&
+      bareerRoutesArray.includes(config.url)
+    ) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -27,14 +38,16 @@ API.interceptors.request.use((config) => {
   }
 });
 
+// response
 API.interceptors.response.use(
   (response) => {
     return response;
   },
   async function (error) {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && error.config.url === "account/me") {
-      console.log(11);
+    if (
+      error.response.status === 401 &&
+      bareerRoutesArray.includes(error.config.url)
+    ) {
       let resp = await refreshToken({
         refreshToken: localStorage.getItem("refreshToken"),
       });
@@ -45,23 +58,6 @@ API.interceptors.response.use(
         saveTokens(resp);
       }
     }
-    // if (error.response.status === 401 && originalRequest._retry) {
-    //   alert(123);
-    //   originalRequest._retry = true;
-    //   const resp =
-    //     localStorage.getItem("accessToken") &&
-    //     (await refreshToken({
-    //       refreshToken: localStorage.getItem("refreshToken"),
-    //     }));
-    //   if (resp) {
-    //     saveTokens(resp);
-    //     API.defaults.headers.common[
-    //       "Authorization"
-    //     ] = `Bearer ${resp.accessToken}`;
-    //   }
-
-    //   return API(originalRequest);
-    // }
     return Promise.reject(error);
   }
 );

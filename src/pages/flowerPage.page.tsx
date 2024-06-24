@@ -12,7 +12,7 @@ const FlowerPage = () => {
   const navigate = useNavigate();
 
   // left as an example - empty array is comming from backend, and creation is cors protected
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["sightings"],
     async (s: any = {}) => await getSightingsFunction({}),
     {

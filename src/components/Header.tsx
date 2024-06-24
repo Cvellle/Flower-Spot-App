@@ -188,20 +188,18 @@ const Header = () => {
                       <span>Favorites</span>
                     </Link>
                   </li>
-                  {!hasToken && !isDesktop ? (
-                    <li className="mt-[35px] lg:mt-[0]">
-                      <span className="flex items-center cursor-pointer">
-                        <span
-                          onClick={() => {
-                            setShowModal(DialogTypes.Settings);
-                            setNavbarOpen(false);
-                          }}
-                        >
-                          Settings
-                        </span>
+                  <li className="mt-[35px] lg:mt-[0]">
+                    <span className="flex items-center cursor-pointer">
+                      <span
+                        onClick={() => {
+                          setShowModal(DialogTypes.Settings);
+                          setNavbarOpen(false);
+                        }}
+                      >
+                        Settings
                       </span>
-                    </li>
-                  ) : null}
+                    </span>
+                  </li>
                   {!hasToken ? (
                     <li className="mt-[45px] lg:mt-[0]">
                       <span className="flex items-center cursor-pointer">

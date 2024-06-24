@@ -1,7 +1,6 @@
 import { removeTokens } from "../shared/helpers/authHelpers";
 import { getDate } from "../shared/helpers/timeHelpers";
 import { useAuth } from "../router/useAuth";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface IProfile {
   successHandler: (data?: any) => void;
@@ -9,11 +8,10 @@ interface IProfile {
 
 const Profile = ({ successHandler }: IProfile) => {
   const user = useAuth().user;
-  const queryClient = useQueryClient();
+
   const logoutUserHandler = () => {
     removeTokens();
     successHandler();
-    queryClient.clear();
   };
 
   return (

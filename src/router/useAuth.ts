@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-
 import { getMeFn } from "../api/authApi";
 import { getTokens } from "../shared/helpers/authHelpers";
 

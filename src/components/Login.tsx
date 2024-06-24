@@ -1,14 +1,12 @@
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMeFn, loginUserFn } from "../api/authApi";
 import FormInput from "./FormInput";
 import { getTokens, saveTokens } from "../shared/helpers/authHelpers";
 import { useState } from "react";
 import Message from "./Message";
-import { toast } from "react-toastify";
 
 const loginSchema = object({
   email: string()
@@ -45,13 +43,7 @@ const LogIn = ({ successHandler }: ILogInProps) => {
       onSuccess(data) {
         queryClient.refetchQueries();
         saveTokens(data);
-        queryClient.refetchQueries();
         setSuccessMessage(true);
-      },
-      onError(error: any) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
-        });
       },
     }
   );

@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect } from "react";
 import { CloseSvg } from "../../assets/icons/CloseSvg";
-import useStore from "../../store";
 
 export default function DialogComponent({
   isOpen,
@@ -11,12 +10,6 @@ export default function DialogComponent({
   children: ReactElement;
   closeHandler: () => void;
 }) {
-  const store = useStore();
-
-  useEffect(() => {
-    isOpen !== null && store.setDialogOpen(isOpen);
-  }, [isOpen]);
-
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {

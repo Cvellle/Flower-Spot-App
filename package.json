@@ -2,7 +2,6 @@
   "name": "flower-spot-app",
   "version": "0.0.0",
   "type": "module",
-  "proxy": "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online",
   "scripts": {
     "dev": "vite --host localhost --port 3000",
     "build": "tsc && vite build",
