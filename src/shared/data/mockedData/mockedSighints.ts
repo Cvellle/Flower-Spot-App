@@ -1,8 +1,8 @@
-export const mockedISightings: ISighting[] = [
+export const mockedSightings: ISighting[] = [
   {
     id: "1",
     name: "Sight 1",
-    authorId: "Nikola Cvetic",
+    authorId: "1",
     flowerId: "string",
     latitude: 47.110579,
     longitude: 9.227568,
@@ -14,7 +14,7 @@ export const mockedISightings: ISighting[] = [
   {
     id: "2",
     name: "Sight 1",
-    authorId: "Nikola Cvetic",
+    authorId: "1",
     flowerId: "string",
     latitude: 47.110579,
     longitude: 9.227568,
@@ -26,7 +26,7 @@ export const mockedISightings: ISighting[] = [
   {
     id: "3",
     name: "Sight 1",
-    authorId: "Nikola Cvetic",
+    authorId: "1",
     flowerId: "string",
     latitude: 47.110579,
     longitude: 9.227568,
@@ -38,7 +38,7 @@ export const mockedISightings: ISighting[] = [
   {
     id: "4",
     name: "Sight 1",
-    authorId: "Nikola Cvetic",
+    authorId: "1",
     flowerId: "string",
     latitude: 47.110579,
     longitude: 9.227568,

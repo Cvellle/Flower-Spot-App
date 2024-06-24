@@ -44,7 +44,7 @@ export default function DialogComponent({
             >
               <div className="flex justify-center relative overflow-y-scroll md:overflow-y-auto">
                 <div
-                  className="absolute top-[20px] right-[20px] cursor-pointer overflow-y-auto"
+                  className="absolute top-[15px] right-[15px] cursor-pointer overflow-y-auto"
                   onClick={() => {
                     closeHandler();
                   }}

@@ -11,6 +11,7 @@ import { object, string } from "zod";
 import { addCommentFn } from "../api/appApi";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface CommentInput {
   content: string;
@@ -29,18 +30,14 @@ const SightingDetailPage = () => {
   });
 
   // started and left as an example - here because the form register
-  const {
-    mutate: addComment,
-    data,
-    isSuccess,
-  } = useMutation(
+  const { mutate: addComment, data } = useMutation(
     (commentData: { sightingId: string; body: { content: string } }) =>
       addCommentFn(commentData),
     {
-      onMutate(variables) {},
-      onSuccess(data) {},
-      onError(error: any) {
-        return;
+      onError(error) {
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
       },
     }
   );
@@ -90,32 +87,29 @@ const SightingDetailPage = () => {
             backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
             backgroundSize: isTablet ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "top 0% left 50%",
+            backgroundPosition: "top 0px left 50%, top -8.19vw left 50%",
           }}
-          className="md:absolute w-[100%] h-[95.23vw] lg:h-[400px] flex items-start justify-between
-           lg:justify-end text-[#334144] px-[40px] lg:px-[0] lg:pt-[244px] lg:pl-[0px]"
+          className="md:absolute w-[100%] h-[95.23vw] md:h-[400px] flex items-start justify-between
+           md:justify-end text-[#334144] px-[40px] md:px-[0] md:pt-[244px] md:pl-[0px]"
         >
-          <div className="absolute left-[28.57%] lg:left-[32.78vw] lg:top-[17.78vw] top-[51.42vw]">
-            <LocationSvg height="40" width="30" />
+          <div className="absolute left-[28.57%] md:left-[32.78vw] top-[51.42vw] md:top-[11.22vw]">
+            <LocationSvg height="3.27vw" width="2.45vw" />
           </div>
-          <div className="lg:flex w-full  lg:items-center lg:justify-center mx-[auto]">
+          <div className="md:flex w-full  md:items-center md:justify-center mx-[auto]">
             <div
-              className="flex w-full lg:w-[1180px] rounded-full mt-[22px] lg:mt-[0] justify-between
-             lg:justify-end h-[50px]"
+              className="flex w-full lg:w-[1180px] rounded-full mt-[22px] md:mt-[0] justify-between
+             md:justify-end h-[50px]"
             >
               <button
                 style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
                 className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
-        text-[14px] font-[500] text-[#FFFFFF] lg:mr-[20px]"
+        text-[14px] font-[500] text-[#FFFFFF] md:mr-[20px]"
               >
                 View on Google Maps
               </button>
               <button
-                onClick={() => {
-                  return;
-                }}
                 className="ml-[10px] text-[#DF9186] w-[110px] rounded-[3.2px] h-[50px] bg-[#FFFFFF]
-               font-[500] text-[14px] shadow-[0px 15px 20px 0px rgba(234, 168, 159, 0.2)]"
+               font-[500] text-[14px] shadow-[0px 15px 20px 0px rgba(234, 168, 159, 0.2)] md:mr-[20px] lg:mr-[0px]"
               >
                 Report
               </button>

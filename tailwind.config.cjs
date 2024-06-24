@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'input-gray': 'lightgray'
+        'input-gray': 'lightgray',
       },
       fontFamily: {
         ubuntu: ['Ubuntu, sans-serif'],

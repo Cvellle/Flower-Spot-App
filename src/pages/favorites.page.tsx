@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 
 const Favorites = () => {
   // query hook
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["flowers"],
-    async (f?: any) => await getFlowersFunction(f),
+    async () => await getFlowersFunction(),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {
@@ -21,7 +21,7 @@ const Favorites = () => {
 
   return (
     <div className="min-h-screen pt-[80px]">
-      <section className="mx-auto lg:max-w-[1220px] mt-[32px] flex flex-wrap justify-start p-[8px]">
+      <section className="mx-auto lg:max-w-[1220px] mt-[34px] flex flex-wrap justify-start p-[8px]">
         {flowers?.map((flower: IFlower) => (
           <div
             key={flower.id}

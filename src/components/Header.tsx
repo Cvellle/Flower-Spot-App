@@ -9,6 +9,7 @@ import { isDesktop } from "../shared/constants/screenMatch";
 
 import { NavCloseSgv } from "../assets/icons/NavCloseSvg";
 import LogIn from "./Login";
+import { HamburgerSvg } from "../assets/icons/HamburgerSvg";
 
 const Header = () => {
   const [scrollDir, setScrollDir] = useState("scrolling down");
@@ -51,7 +52,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   //states
-  const [showModal, setShowModal] = useState<DialogTypes | undefined>(
+  const [showDialog, setShowDialog] = useState<DialogTypes | undefined>(
     undefined
   );
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -62,7 +63,7 @@ const Header = () => {
 
   return (
     <>
-      {showModal !== undefined || headerVisible ? (
+      {showDialog !== undefined || headerVisible ? (
         <header className="fixed w-full z-[100] md:z-[10] [&_*]:border-[none] [&_*]:shadow-[none]">
           <nav
             style={{
@@ -81,7 +82,7 @@ const Header = () => {
                 <div
                   onClick={() => {
                     navigate("/");
-                    setShowModal(undefined);
+                    setShowDialog(undefined);
                   }}
                   className="flex items-center cursor-pointer"
                 >
@@ -129,7 +130,7 @@ const Header = () => {
                 </div>
                 {navbarOpen ? (
                   <div
-                    className="my-auto"
+                    className="my-auto mr-[-5px]"
                     onClick={() => {
                       setNavbarOpen(!navbarOpen);
                     }}
@@ -137,15 +138,13 @@ const Header = () => {
                     <NavCloseSgv />
                   </div>
                 ) : (
-                  <button
-                    className="flex flex-wrap items-between w-[24px] h-[16px] my-auto bg-tranparent text-white cursor-pointer text-xl leading-none rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-                    type="button"
+                  <div
+                    className="flex flex-wrap items-between w-[24px] h-[16px] my-auto bg-tranparent
+                     text-white cursor-pointer text-xl leading-none rounded bg-transparent block lg:hidden outline-none focus:outline-none"
                     onClick={() => setNavbarOpen(!navbarOpen)}
                   >
-                    <span className="block bg-[#949EA0] rounded h-[1.23px] w-[24px]"></span>
-                    <span className="block bg-[#949EA0] rounded h-[1.23px] w-[24px]"></span>
-                    <span className="block bg-[#949EA0] rounded h-[1.23px] w-[24px]"></span>
-                  </button>
+                    <HamburgerSvg />
+                  </div>
                 )}
               </div>
               <div
@@ -164,7 +163,7 @@ const Header = () => {
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
-                          setShowModal(undefined);
+                          setShowDialog(undefined);
                         }}
                       >
                         Flowers
@@ -176,7 +175,7 @@ const Header = () => {
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
-                          setShowModal(undefined);
+                          setShowDialog(undefined);
                         }}
                       >
                         Latest Sightings
@@ -192,7 +191,7 @@ const Header = () => {
                     <span className="flex items-center cursor-pointer">
                       <span
                         onClick={() => {
-                          setShowModal(DialogTypes.Settings);
+                          setShowDialog(DialogTypes.Settings);
                           setNavbarOpen(false);
                         }}
                       >
@@ -205,7 +204,7 @@ const Header = () => {
                       <span className="flex items-center cursor-pointer">
                         <span
                           onClick={() => {
-                            setShowModal(DialogTypes.LogIn);
+                            setShowDialog(DialogTypes.LogIn);
                             setNavbarOpen(false);
                           }}
                           className="text-[#E19184]"
@@ -229,7 +228,7 @@ const Header = () => {
                             }}
                             className="ml-[15px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"
                             onClick={() => {
-                              setShowModal(DialogTypes.Profile);
+                              setShowDialog(DialogTypes.Profile);
                               setNavbarOpen(false);
                             }}
                           ></div>
@@ -244,7 +243,7 @@ const Header = () => {
                      bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] font-[500] text-[#FFFFFF]"
                         type={"submit"}
                         onClick={() => {
-                          setShowModal(DialogTypes.SignUp);
+                          setShowDialog(DialogTypes.SignUp);
                           setNavbarOpen(false);
                         }}
                       >
@@ -260,48 +259,48 @@ const Header = () => {
       ) : null}
       <div className="relative z-[50]">
         {/* Dialogs */}
-        {showModal === DialogTypes.SignUp ? (
+        {showDialog === DialogTypes.SignUp ? (
           <DialogComponent
             isOpen={true}
-            closeHandler={() => setShowModal(undefined)}
+            closeHandler={() => setShowDialog(undefined)}
           >
             <SignUp
               successHandler={() => {
-                setShowModal(DialogTypes.LogIn);
+                setShowDialog(DialogTypes.LogIn);
                 setNavbarOpen(false);
               }}
             />
           </DialogComponent>
         ) : null}
-        {showModal === DialogTypes.LogIn ? (
+        {showDialog === DialogTypes.LogIn ? (
           <DialogComponent
             isOpen={true}
-            closeHandler={() => setShowModal(undefined)}
+            closeHandler={() => setShowDialog(undefined)}
           >
             <LogIn
               successHandler={() => {
-                setShowModal(undefined);
-                setShowModal(DialogTypes.Profile);
+                setShowDialog(undefined);
+                setShowDialog(DialogTypes.Profile);
               }}
             />
           </DialogComponent>
         ) : null}
-        {showModal === DialogTypes.Profile ? (
+        {showDialog === DialogTypes.Profile ? (
           <DialogComponent
             isOpen={true}
-            closeHandler={() => setShowModal(undefined)}
+            closeHandler={() => setShowDialog(undefined)}
           >
             <Profile
               successHandler={() => {
-                setShowModal(undefined);
+                setShowDialog(undefined);
               }}
             />
           </DialogComponent>
         ) : null}
-        {showModal === DialogTypes.Settings ? (
+        {showDialog === DialogTypes.Settings ? (
           <DialogComponent
             isOpen={true}
-            closeHandler={() => setShowModal(undefined)}
+            closeHandler={() => setShowDialog(undefined)}
           >
             <Settings />
           </DialogComponent>

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { getSightingsFunction } from "../api/appApi";
 import SightingItem from "../components/SightingItem";
 import { useNavigate } from "react-router-dom";
-import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
+import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
 import { isDesktop, isTablet } from "../shared/constants/screenMatch";
 import { StarSvg } from "../assets/icons/StarSvg";
 
@@ -14,7 +14,7 @@ const FlowerPage = () => {
   // left as an example - empty array is comming from backend, and creation is cors protected
   const { data } = useQuery(
     ["sightings"],
-    async (s: any = {}) => await getSightingsFunction({}),
+    async () => await getSightingsFunction(),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {
@@ -25,7 +25,7 @@ const FlowerPage = () => {
   );
 
   // mocked data given
-  let sightings = mockedISightings;
+  let sightings = mockedSightings;
 
   return (
     <>

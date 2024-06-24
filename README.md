@@ -24,6 +24,8 @@ npm run dev
 npm run test
 ```
 
+open it on http://localhost:3000/ in your browser
+
 ## Git - check is it a git folder
 
 ```
@@ -36,14 +38,20 @@ Tests are in tests folder.
 
 Settings link provided in header on desktop - to see it, since it is done.
 
+All of the routes are done - see in the: src\router\index.tsx
+
+Flower and Sighting items, user icons in items, and add new sighting buttons are clickable
+
 ## Stack
 
 **1.** **React**
 
-**2.** **React Query** - useQuery, useMutation, cache and stale, enabled
+**2.** **Typescript**
 
-**3.** **Axios** - interceptors
+**4.** **React Query** - useQuery, useMutation, cache and stale, enabled
 
-**4.** **Other** - jest, loadash, deboubce, hiding header
+**4.** **Axios** - interceptors
+
+**5.** **Other** - jest, loadash, deboubce, hiding header
 
 :sparkles:

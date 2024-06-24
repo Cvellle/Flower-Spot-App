@@ -4,20 +4,8 @@ export default function RangeInputComponent() {
   const [rangeValue, setRangeValue] = useState<number>(50);
 
   return (
-    <div
-      className="range_input_comp"
-      style={{
-        maxHeight: "102px",
-        maxWidth: "385px",
-        paddingTop: "51px",
-      }}
-    >
-      <div
-        className="range2_wrapper"
-        style={{
-          height: "102px",
-        }}
-      >
+    <div className="range_input_comp max-h-[102px] max-w-[385px] pt-[51px]">
+      <div className="range2_wrapper h-[102px]">
         <div className="range range2">
           <input
             min={1}
@@ -25,20 +13,14 @@ export default function RangeInputComponent() {
             id="range"
             value={rangeValue}
             onChange={(e) => {
+              // left here because of errors in console
               return;
             }}
           />
         </div>
       </div>
 
-      <div
-        style={{
-          maxHeight: "102px",
-          marginTop: "-102px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <div className="flex max-h-[102px] max-w-[385px] mt-[-102px] justify-content-center">
         <div
           className="range range3 w-[195px] s:w-[295px]"
           style={{
@@ -63,15 +45,9 @@ export default function RangeInputComponent() {
       </div>
       <div
         style={{
-          position: "relative",
-          zIndex: 5,
           padding: "11px 45px 0 45px",
-          display: "flex",
-          fontSize: "14px",
-          alignItems: "flexStart",
-          justifyContent: "space-between",
         }}
-        className="w-[285px] s:w-[397px]"
+        className="flex w-[285px] s:w-[397px] relative z-[5] text-[14px] justify-between"
       >
         <div className="w-[40px] flex justify-center ml-[-17px]">1 km</div>
         <div>5 km</div>

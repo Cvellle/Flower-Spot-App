@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSightingsFunction } from "../api/appApi";
 import { toast } from "react-toastify";
-import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
+import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
 import SightingItem from "../components/SightingItem";
 import { isDesktop } from "../shared/constants/screenMatch";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const Sightings = () => {
   );
 
   // mocked data given
-  let sightings = mockedISightings;
+  let sightings = mockedSightings;
 
   return (
     <>

@@ -1,9 +1,9 @@
 import SightingItem from "../components/SightingItem";
-import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
+import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
 
 const User = () => {
   // mocked data given
-  let sightings = mockedISightings;
+  let sightings = mockedSightings;
 
   return (
     <>
@@ -28,9 +28,6 @@ const User = () => {
           </div>
           <div className="flex pt-[47px]">
             <button
-              onClick={() => {
-                return;
-              }}
               className="text-[#FFFFFF] w-[110px] rounded-[3.2px] mx-auto h-[50px] bg-gradient-to-r
                from-[#ECBCB3] to-[#EAA79E] font-[500] text-[14px] shadow-[0px 15px 20px 0px rgba(234, 168, 159, 0.2)]
 "

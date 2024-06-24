@@ -10,7 +10,6 @@ export const useAuth = () => {
   });
   return {
     user: data,
-    auth: !!data,
     hasToken: !!getTokens().accessToken,
   };
 };

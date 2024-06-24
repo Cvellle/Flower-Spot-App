@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { isDesktop } from "../shared/constants/screenMatch";
 
 type TextareaComponentProps = {
   label?: string;
@@ -10,7 +11,6 @@ type TextareaComponentProps = {
 const TextareaComponent: React.FC<TextareaComponentProps> = ({
   label = "",
   name,
-  height = "242px",
 }) => {
   const {
     register,
@@ -26,7 +26,8 @@ const TextareaComponent: React.FC<TextareaComponentProps> = ({
         {label?.length ? label : "Write a comment"}
       </label>
       <textarea
-        className={`italic pt-[24px] pl-[19px] h-[${height}] w-full rounded-[3.2px] bg-[#DFE5EA] text-[15px] leading-[20px] text-[#334144]`}
+        style={{ height: isDesktop ? "150px" : "242px" }}
+        className={`italic pt-[24px] pl-[19px] w-full rounded-[3.2px] bg-[#DFE5EA] text-[15px] leading-[20px] text-[#334144]`}
         {...register(name)}
       />
       {errors[name] && (

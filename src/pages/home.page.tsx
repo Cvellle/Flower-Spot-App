@@ -26,8 +26,8 @@ const HomePage = () => {
   let flowers = Array.isArray(data?.items) ? data.items : [];
 
   return (
-    <div className="min-h-screen">
-      <section className="pt-[80px]">
+    <div className="min-h-screen pt-[80px]">
+      <section>
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(./src/assets/images/purpleFl.png)`,
@@ -42,7 +42,7 @@ const HomePage = () => {
               Discover flowers around you
             </h2>
           </div>
-          <p className="mt-[25px] md:mt-[15px] text-center text-[17px] leading-none h-[17px]">
+          <p className="text-[#FFFFFF] opacity-[0.7] mt-[25px] md:mt-[15px] text-center text-[17px] leading-none h-[17px]">
             Explore between more than 8.427 sightings
           </p>
           <div
@@ -58,7 +58,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <section className="mx-auto lg:max-w-[1220px] mt-[32px] flex flex-wrap justify-start p-[8px]">
+      <section className="mx-auto lg:max-w-[1220px] mt-[34px] flex flex-wrap justify-start p-[8px]">
         {flowers
           ?.filter((filterItem: IFlower) =>
             filterItem.name.includes(filterState)

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import { LocationSvg } from "../assets/icons/LocationSvg";
 import { PhotoSvg } from "../assets/icons/PhotoSvg";
 import FormInput from "../components/FormInput";
@@ -8,10 +7,9 @@ import { useMutation } from "@tanstack/react-query";
 import { any, object, string, TypeOf, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-
 import { useParams } from "react-router-dom";
 import { addNewSightingFn } from "../api/appApi";
-import { isDesktop } from "../shared/constants/screenMatch";
+import { isDesktop, isTablet } from "../shared/constants/screenMatch";
 import { toast } from "react-toastify";
 
 export type INewSightingInputs = TypeOf<typeof registerSchema>;
@@ -40,7 +38,7 @@ const NewSighting = () => {
 
   // left here as an example - cors protected
   const { mutate: addSighting, data } = useMutation(
-    (sightingData: any) => addNewSightingFn(sightingData),
+    (sightingData: INewSigthing) => addNewSightingFn(sightingData),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {
@@ -80,20 +78,20 @@ const NewSighting = () => {
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
-            backgroundSize: "190% auto",
+            backgroundSize: isTablet ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "top 0% left 50%",
+            backgroundPosition: "top 0px left 50%, top -8.19vw left 50%",
           }}
-          className="lg:absolute lg:w-full h-[95.23vw] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
+          className="md:absolute md:w-full h-[95.23vw] md:h-[400px] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
         >
           <div className="md:flex md:items-center">
-            <div className="absolute left-[28.57%] top-[51.42vw]">
-              <LocationSvg height="40" width="30" />
+            <div className="absolute left-[28.57%] md:left-[32.78vw] top-[51.42vw] md:top-[11.22vw]">
+              <LocationSvg height="3.27vw" width="2.45vw" />
             </div>
           </div>
-          <div className="flex pt-[22px]">
+          <div className="flex pt-[22px] md:w-full md:max-w-[1180px] md:mx-auto md:justify-end md:mt-[224px]">
             <button
-              className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
+              className="md:mr-[40px] bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF]"
             >
               View on Google Maps
@@ -105,7 +103,8 @@ const NewSighting = () => {
         style={{
           boxShadow: "0px 15px 30px 0px #0000000D",
         }}
-        className="lg:mx-auto lg:max-w-[1180px] mt-[-180px] lg:mt-[324px] px-[16px] flex flex-wrap z-[5] relative"
+        className="md:mx-auto md:max-w-[1180px] mt-[-180px] md:mt-[324px] 
+        px-[16px] flex flex-wrap z-[5] relative"
       >
         <FormProvider {...methods}>
           <form

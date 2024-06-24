@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { CommentSVG } from "../assets/icons/Comment";
 import { HeartSVG } from "../assets/icons/HeartSvg";
 import { LocationSvg } from "../assets/icons/LocationSvg";
-import { isDesktop } from "../shared/constants/screenMatch";
 
 const SightingItem = ({ item }: { item: ISighting }) => {
   // hooks
@@ -43,7 +42,7 @@ const SightingItem = ({ item }: { item: ISighting }) => {
                 backgroundImage: `url(/src/assets/images/user1.png)`,
                 backgroundSize: `contain`,
               }}
-              className="ml-[20px] w-[40px] h-[40px] rounded-full"
+              className="ml-[20px] w-[40px] h-[40px] rounded-full cursor-pointer"
             ></div>
             <div className="flex flex-col justify-between h-[30px] ml-[43.45px]">
               <p className="text-[15px] leading-[15px] text-[#334144] font-[300]">
