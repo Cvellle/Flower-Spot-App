@@ -1,7 +1,10 @@
-// @ts-nocheck
 import { SyntheticEvent, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import { SearchSvg } from "../../assets/icons/SearchSvg";
+
+type HTMLElementEvent<T extends HTMLElement> = SyntheticEvent & {
+  target: T;
+};
 
 export default function SearchInputComponent({
   placeholder = "",
@@ -18,13 +21,18 @@ export default function SearchInputComponent({
     changeHandler(inputValue, event);
   }
 
-  function handleChange(event: SyntheticEvent) {
-    setValue(event.target.value);
+  function handleChange(event: HTMLElementEvent<HTMLInputElement>) {
+    setValue(event?.target?.value);
     debounceFn(event.target.value, event);
   }
 
   return (
-    <div className="flex">
+    <div
+      className="flex"
+      style={{
+        boxShadow: "0px 15px 30px 0px #0000000D",
+      }}
+    >
       <input
         className="p-[19px] md:p-[25px] h-full text-[#949EA0] bg-[#FFFFFF] text-[14px] md:text-[18px]"
         value={value}

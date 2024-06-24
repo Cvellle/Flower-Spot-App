@@ -8,8 +8,8 @@ export const mockedISightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "../src/assets/images/blueFl.png",
-    description: "Some description 1. Text says this, and so on...",
+    pictureUrl: "/src/assets/images/blueFl.png",
+    description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
     id: "2",
@@ -20,8 +20,8 @@ export const mockedISightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "../src/assets/images/blueFl.png",
-    description: "Some description 1. Text says this, and so on...",
+    pictureUrl: "/src/assets/images/blueFl.png",
+    description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
     id: "3",
@@ -32,8 +32,8 @@ export const mockedISightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "../src/assets/images/blueFl.png",
-    description: "Some description 1. Text says this, and so on...",
+    pictureUrl: "/src/assets/images/blueFl.png",
+    description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
     id: "4",
@@ -44,7 +44,7 @@ export const mockedISightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "../src/assets/images/blueFl.png",
-    description: "Some description 1. Text says this, and so on...",
+    pictureUrl: "/src/assets/images/blueFl.png",
+    description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
 ];

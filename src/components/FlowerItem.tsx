@@ -1,4 +1,3 @@
-import useStore from "../store";
 import { useNavigate } from "react-router-dom";
 import { StarSvg } from "../assets/icons/StarSvg";
 import { useAuth } from "../router/useAuth";
@@ -11,11 +10,13 @@ const FlowerItem = ({ item }: { item: IFlower }) => {
   return (
     <div
       onClick={() => {
-        navigate("flower/" + item.id);
+        navigate("/flower/" + item.id);
       }}
       key={item.id}
       style={{
-        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${"./src/assets/images/blueFl.png"})`,
+        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${"/src/assets/images/blueFl.png"})`,
+        backgroundPosition: "50% 50%",
+        backgroundSize: "auto 100%",
       }}
       className="h-[230px] md:h-[290px] lg:h-[350px] flex justify-center content-start flex-wrap
        [&>*]:w-full [&>*]:text-center text-[#FFFFFF] text-[9.6px] md:text-[12px] leading-none cursor-pointer"

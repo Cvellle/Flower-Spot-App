@@ -7,6 +7,7 @@ export const useAuth = () => {
   const { data } = useQuery(["user"], async () => await getMeFn(), {
     staleTime: 9000000,
     cacheTime: 9000000,
+    enabled: !!getTokens().accessToken,
   });
   return {
     user: data,

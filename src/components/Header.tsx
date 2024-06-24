@@ -6,18 +6,11 @@ import { useAuth } from "../router/useAuth";
 import Profile from "./Profile";
 import { Link, useNavigate } from "react-router-dom";
 import { isDesktop } from "../shared/constants/screenMatch";
-import { getMeFn } from "../api/authApi";
+
 import { NavCloseSgv } from "../assets/icons/NavCloseSvg";
 import LogIn from "./Login";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { getTokens } from "../shared/helpers/authHelpers";
 
 const Header = () => {
-  useEffect(() => {
-    // !!getTokens().accessToken && getMeFn();
-  }, []);
-
   const [scrollDir, setScrollDir] = useState("scrolling down");
 
   useEffect(() => {
@@ -70,7 +63,7 @@ const Header = () => {
   return (
     <>
       {showModal !== undefined || headerVisible ? (
-        <header className="fixed w-full z-[100] lg:z-[10] [&_*]:border-[none] [&_*]:shadow-[none]">
+        <header className="fixed w-full z-[100] md:z-[10] [&_*]:border-[none] [&_*]:shadow-[none]">
           <nav
             style={{
               boxShadow: isDesktop ? "0px 15px 30px 0px #0000000D" : "none",
@@ -167,7 +160,7 @@ const Header = () => {
                  lg:[&_li]:ml-[50px]"
                 >
                   <li>
-                    <Link to={"/"} className="flex items-center">
+                    <Link to={"/flowers"} className="flex items-center">
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
@@ -191,11 +184,11 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="mt-[35px] lg:mt-[0]">
-                    <Link to={""} className="flex items-center">
+                    <Link to={"/favorites"} className="flex items-center">
                       <span>Favorites</span>
                     </Link>
                   </li>
-                  {!hasToken ? (
+                  {!hasToken && !isDesktop ? (
                     <li className="mt-[35px] lg:mt-[0]">
                       <span className="flex items-center cursor-pointer">
                         <span
@@ -226,14 +219,14 @@ const Header = () => {
                   ) : null}
                   <li>
                     {hasToken ? (
-                      hasToken ? (
-                        <div className="flex items-center mt-[35px] lg:mt-[0px]">
+                      hasToken && user?.lastName ? (
+                        <div className="flex items-center mt-[35px] lg:mt-[0px] lg:min-w-[110px] lg:max-w-[140px]">
                           <p className="flex content-center">
                             {user?.firstName + " " + user?.lastName}
                           </p>
                           <div
                             style={{
-                              background: `url(../src/assets/images/user.png) no-repeat`,
+                              background: `url(/src/assets/images/user.png) no-repeat`,
                               backgroundSize: "40px 40px",
                             }}
                             className="ml-[15px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"

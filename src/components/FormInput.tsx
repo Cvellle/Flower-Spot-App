@@ -35,11 +35,13 @@ const FormInput: React.FC<FormInputProps> = ({
          text-[13px] color-[#334144]`}
         {...register(name)}
       />
-      {errors[name] && (
-        <span className="z-20 text-red-500 text-[12px] leading-none pt-0 block h-[12px] mt-[-10px]">
-          {errors[name]?.message as string}
-        </span>
-      )}
+      <div>
+        {errors[name] && (
+          <span className="z-20 text-red-500 text-[12px] leading-none pt-0 block h-[12px]">
+            {errors[name]?.message as string}
+          </span>
+        )}
+      </div>
     </div>
   );
 };

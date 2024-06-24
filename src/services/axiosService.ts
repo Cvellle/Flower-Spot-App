@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getMeFn, refreshToken } from "../api/authApi";
+import { refreshToken } from "../api/authApi";
 import { saveTokens } from "../shared/helpers/authHelpers";
 
 export const apiURL =
@@ -10,7 +10,6 @@ export const API = axios.create({
   headers: {
     "Access-Control-Allow-Origin": "*",
     Acept: "application/json",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
     "Content-Type": "application/json",
   },
 });
@@ -19,12 +18,9 @@ export const API = axios.create({
 API.interceptors.request.use((config) => {
   try {
     const token = localStorage.getItem("accessToken");
-    if (config.headers) {
-      token &&
-        config.url === "account/me" &&
-        (config.headers.Authorization = `Bearer ${token}`);
+    if (config.headers && token && config.url === "account/me") {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   } catch (err) {
     return err;
@@ -39,7 +35,6 @@ API.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response.status === 401 && error.config.url === "account/me") {
       console.log(11);
-
       let resp = await refreshToken({
         refreshToken: localStorage.getItem("refreshToken"),
       });
@@ -48,25 +43,25 @@ API.interceptors.response.use(
           "Authorization"
         ] = `Bearer ${resp.accessToken}`;
         saveTokens(resp);
-        getMeFn();
       }
     }
-    if (error.response.status === 401 && originalRequest._retry) {
-      console.log(22);
-      originalRequest._retry = true;
-      const resp = await refreshToken({
-        refreshToken: localStorage.getItem("refreshToken"),
-      });
-      if (resp) {
-        saveTokens(resp);
-        API.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${resp.accessToken}`;
-        getMeFn();
-      }
+    // if (error.response.status === 401 && originalRequest._retry) {
+    //   alert(123);
+    //   originalRequest._retry = true;
+    //   const resp =
+    //     localStorage.getItem("accessToken") &&
+    //     (await refreshToken({
+    //       refreshToken: localStorage.getItem("refreshToken"),
+    //     }));
+    //   if (resp) {
+    //     saveTokens(resp);
+    //     API.defaults.headers.common[
+    //       "Authorization"
+    //     ] = `Bearer ${resp.accessToken}`;
+    //   }
 
-      return API(originalRequest);
-    }
+    //   return API(originalRequest);
+    // }
     return Promise.reject(error);
   }
 );

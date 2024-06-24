@@ -4,7 +4,6 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import useStore from "../store";
 import { signUpUserFn } from "../api/authApi";
 import FormInput from "./FormInput";
 import { getDate } from "../shared/helpers/timeHelpers";
@@ -31,7 +30,6 @@ interface ISignUp {
 }
 
 const SignUp = ({ successHandler }: ISignUp) => {
-  const store = useStore();
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const methods = useForm<RegisterInput>({
@@ -92,7 +90,7 @@ const SignUp = ({ successHandler }: ISignUp) => {
           </button>
         </Message>
       ) : (
-        <div className="w-[380px] text-[#334144]">
+        <div className="max-w-[440px] m-[5px] text-[#334144]">
           <h2
             className="m-[30px] text-center text-[20px] leading-none block h-[20px] font-[500] font-ubuntu
          text-[#334144]"
@@ -102,33 +100,34 @@ const SignUp = ({ successHandler }: ISignUp) => {
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmitHandler)}
-              className="flex flex-wrap [&_input]:mb-[10px]"
+              className="flex flex-wrap"
             >
-              <div className="mr-[5px] w-[185px]">
+              <div className="mr-[5px] w-[calc(50%_-_5px)]">
                 <FormInput label="First Name" name="firstName" />
               </div>
-              <div className="ml-[5px] w-[185px]">
+              <div className="ml-[5px] w-[calc(50%_-_5px)]">
                 <FormInput label="Last Name" name="lastName" />
               </div>
-              <div className="w-[380px] z-10 relative">
-                <FormInput
-                  label="Date of Birth"
-                  name="dateOfBirth"
-                  type="date"
-                />
-              </div>
-              <div
-                className="w-full rounded-[3.2px] bg-[#DFE5EA] text-[13px] leading-none h-[50px]
-               mt-[-60px] relative relative font-ubuntu
-               text-[13px] pt-[11px] pl-[15px] flex items-center pt-[10px]
+              <div className="w-[100%] mt-[10px] relative">
+                <div className="relative z-[10]">
+                  <FormInput
+                    label="Date of Birth"
+                    name="dateOfBirth"
+                    type="date"
+                  />
+                </div>
+                <div
+                  className="z-[9] absolute top-0 w-full rounded-[3.2px] bg-[#DFE5EA] text-[13px] leading-none h-[50px]
+                    font-ubuntu text-[13px] pt-[11px] pl-[15px] flex items-center pt-[10px]
             "
-              >
-                {getDate(methods.watch().dateOfBirth)}
+                >
+                  {getDate(methods.watch().dateOfBirth)}
+                </div>
               </div>
-              <div className="w-[380px]">
+              <div className="w-[100%] mt-[10px]">
                 <FormInput label="Email Adress" name="email" />
               </div>
-              <div className="w-[380px]">
+              <div className="w-[100%] mt-[10px]">
                 <FormInput label="Password" name="password" type={"password"} />
               </div>
               <button

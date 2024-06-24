@@ -1,19 +1,19 @@
-import { useMutation } from "@tanstack/react-query";
-import useStore from "../store";
 import { removeTokens } from "../shared/helpers/authHelpers";
 import { getDate } from "../shared/helpers/timeHelpers";
+import { useAuth } from "../router/useAuth";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IProfile {
   successHandler: (data?: any) => void;
 }
 
 const Profile = ({ successHandler }: IProfile) => {
-  const store = useStore();
-
+  const user = useAuth().user;
+  const queryClient = useQueryClient();
   const logoutUserHandler = () => {
     removeTokens();
-    store.setAuthUser(null);
     successHandler();
+    queryClient.clear();
   };
 
   return (
@@ -25,31 +25,29 @@ const Profile = ({ successHandler }: IProfile) => {
         <div className="flex items-center">
           <div
             style={{
-              backgroundImage: `url(./src/assets/images/user.png)`,
+              backgroundImage: `url(/src/assets/images/user.png)`,
               backgroundSize: "80px 80px",
             }}
             className="w-[80px] h-[80px] rounded-full"
           ></div>
           <div className="flex flex-col justify-between h-[44px] ml-[30px]">
             <p className="text-[25px] leading-[25px] text-[#334144] font-[300]">
-              {store.authUser?.firstName + " " + store.authUser?.lastName}
+              {user?.firstName + " " + user?.lastName}
             </p>
             <p className="text-[13px] leading-[13px] text-[#949EA0]">
-              {store.authUser?.sightingsNum + " sightings"}
+              {user?.sightingsNum + " sightings"}
             </p>
           </div>
         </div>
         <div className="[&_p]:text-[18px] [&>small]:block [&>small]:text-[#949EA0] [&>small]:text-[10px] [&>*]:leading-none">
           <small className="mt-[44px]">First Name</small>
-          <p className="display_item">{store.authUser?.firstName}</p>
+          <p className="display_item">{user?.firstName}</p>
           <small className="mt-[26px]">Last Name</small>
-          <p className="display_item">{store.authUser?.lastName}</p>
+          <p className="display_item">{user?.lastName}</p>
           <small className="mt-[26px]">Date of Birth</small>
-          <p className="display_item">
-            {getDate(store?.authUser?.dateOfBirth)}
-          </p>
+          <p className="display_item">{getDate(user?.dateOfBirth)}</p>
           <small className="mt-[26px]">Email Address</small>
-          <p className="display_item">{store.authUser?.email}</p>
+          <p className="display_item">{user?.email}</p>
         </div>
         <div className="w-[380px]"></div>
         <button

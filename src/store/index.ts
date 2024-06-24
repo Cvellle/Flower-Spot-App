@@ -2,16 +2,16 @@ import create from "zustand";
 import { IUser } from "../api/types";
 
 type Store = {
-  authUser: IUser | null;
-  requestLoading: boolean;
-  setAuthUser: (user: IUser | null) => void;
+  dialogOpen: boolean;
+  setUser: (userData: IUser) => void;
+  setDialogOpen: (isOpen: boolean) => void;
 };
 
 const useStore = create<Store>((set) => ({
-  authUser: null,
-  flowers: [],
-  requestLoading: false,
-  setAuthUser: (user) => set((state) => ({ ...state, authUser: user })),
+  user: null,
+  setUser: (userData) => set((state) => ({ ...state, user: userData })),
+  dialogOpen: false,
+  setDialogOpen: (isOpen) => set((state) => ({ ...state, dialogOpen: isOpen })),
 }));
 
 export default useStore;

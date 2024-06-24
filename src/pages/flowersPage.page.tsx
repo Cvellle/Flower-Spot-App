@@ -1,11 +1,9 @@
 import { SyntheticEvent, useEffect, useState } from "react";
-
 import SearchInputComponent from "../shared/components/SearchInputComponent";
 import { useQuery } from "@tanstack/react-query";
 import FlowerItem from "../components/FlowerItem";
 import { getFlowersFunction } from "../api/appApi";
 import { toast } from "react-toastify";
-import { isTablet } from "../shared/constants/screenMatch";
 
 const FlowersPage = () => {
   // hooks
@@ -26,33 +24,12 @@ const FlowersPage = () => {
 
   let flowers = Array.isArray(data?.items) ? data.items : [];
 
-  // effect
-  useEffect(() => {
-    getFlowersFunction({});
-  }, []);
-
   return (
     <div className="min-h-screen">
       <section className="pt-[80px]">
-        <div
-          style={{
-            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(./src/assets/images/purpleFl.png)`,
-            backgroundSize: isTablet ? "100%" : "200%",
-            backgroundPosition: "0% 50%",
-            backgroundRepeat: "no-repeat",
-          }}
-          className="min-h-[500px] text-[#FFFFFF]"
-        >
-          <div className="width-full flex justify-center">
-            <h2 className="mt-[104px] lg:mt-[154px] text-[40px] text-center w-[385px] md:w-[unset] leading-none h-[80px] md:h-[unset] block leading-none">
-              Discover flowers around you
-            </h2>
-          </div>
-          <p className="mt-[25px] md:mt-[15px] text-center text-[17px] leading-none h-[17px]">
-            Explore between more than 8.427 sightings
-          </p>
+        <div className="min-h-[110px] text-[#FFFFFF]">
           <div
-            className="mx-auto mt-[58px] [&_input]:w-[307px] md:[&_input]:w-[458px] lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px]
+            className="mx-auto mt-[50px] [&_input]:w-[307px] md:[&_input]:w-[458px] lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px]
            flex justify-center"
           >
             <SearchInputComponent
@@ -64,7 +41,7 @@ const FlowersPage = () => {
           </div>
         </div>
       </section>
-      <section className="mx-auto lg:max-w-[1220px] mt-[32px] flex flex-wrap justify-start p-[8px]">
+      <section className="mx-auto lg:max-w-[1220px] mt-[0px] flex flex-wrap justify-start p-[8px]">
         {flowers
           ?.filter((filterItem: IFlower) =>
             filterItem.name.includes(filterState)

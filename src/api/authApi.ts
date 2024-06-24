@@ -2,8 +2,7 @@ import { LoginInput } from "../components/Login";
 import { RegisterInput } from "../components/Signup";
 
 import { API } from "../services/axiosService";
-import { saveUser } from "../shared/helpers/authHelpers";
-import useStore from "../store";
+
 import { IRegisterResponse, IUser } from "./types";
 
 API.defaults.headers.common["Content-Type"] = "application/json";

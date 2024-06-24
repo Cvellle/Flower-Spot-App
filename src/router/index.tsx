@@ -4,9 +4,11 @@ import HomePage from "../pages/home.page";
 
 import User from "../pages/user.page";
 import FlowerPage from "../pages/flowerPage.page";
+import FlowersPage from "../pages/flowersPage.page";
 import SightingDetailPage from "../pages/sightingDetailPage.page";
 import NewSighting from "../pages/newSighting.page";
 import Sightings from "../pages/sightings.page";
+import Favorites from "../pages/favorites.page";
 
 // useAuth().authenticated ? <Outlet/> : <Navigate to='/login'/>
 let auth = { token: true };
@@ -45,13 +47,18 @@ const normalRoutes: RouteObject = {
     },
     {
       index: true,
-      path: "flowres",
+      path: "flowers",
       element: <FlowersPage />,
     },
     {
       index: true,
       path: "sightings",
       element: <Sightings />,
+    },
+    {
+      index: true,
+      path: "favorites",
+      element: <Favorites />,
     },
   ],
 };

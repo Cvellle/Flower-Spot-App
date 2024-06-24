@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { CommentSVG } from "../assets/icons/Comment";
 import { HeartSVG } from "../assets/icons/HeartSvg";
 import { LocationSvg } from "../assets/icons/LocationSvg";
+import { isDesktop } from "../shared/constants/screenMatch";
 
 const SightingItem = ({ item }: { item: ISighting }) => {
   // hooks
@@ -14,10 +15,10 @@ const SightingItem = ({ item }: { item: ISighting }) => {
         className="h-[439px] md:h-[498px] lg:h-[500px] flex flex-col"
       >
         <div className="mt-[20px] mb-[-42.4px] relative z-[10]">
-          <div className="flex items-center pl-[20px] rounded-[1rem] ml-[20px] w-[136px] h-[22.04px] bg-[white]">
+          <div className="flex items-center pl-[10px] rounded-[1rem] ml-[20px] w-[136px] h-[22.04px] bg-[white] text-[12px]">
             <LocationSvg height="14" width="10" />
             <span className="ml-[10px] text-[#FBDDCE] text-[12px]">
-              San Francisco
+              {"San Francisco, US"}
             </span>
           </div>
         </div>
@@ -27,16 +28,19 @@ const SightingItem = ({ item }: { item: ISighting }) => {
               navigate("/sightings/" + item.id);
             }}
             style={{
-              backgroundImage: `url(${"../src/assets/images/blueFl.png"})`,
-              backgroundSize: `170%`,
+              backgroundImage: `url(${"/src/assets/images/blueFl.png"})`,
+              backgroundSize: "100% auto",
               backgroundPosition: `10% 10%`,
             }}
             className="w-full h-[246.83px] md:h-[280px] adjustable_img cursor-pointer"
           ></div>
           <div className="flex items-center mt-[23.17px]">
             <div
+              onClick={() => {
+                navigate("/user/" + item.authorId);
+              }}
               style={{
-                backgroundImage: `url(../src/assets/images/user1.png)`,
+                backgroundImage: `url(/src/assets/images/user1.png)`,
                 backgroundSize: `contain`,
               }}
               className="ml-[20px] w-[40px] h-[40px] rounded-full"

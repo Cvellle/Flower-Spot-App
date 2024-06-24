@@ -1,7 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from "react";
-
 import SearchInputComponent from "../shared/components/SearchInputComponent";
-import useStore from "../store";
 import { useQuery } from "@tanstack/react-query";
 import FlowerItem from "../components/FlowerItem";
 import { getFlowersFunction } from "../api/appApi";
@@ -15,7 +13,7 @@ const HomePage = () => {
   // query hook
   const { data, isLoading } = useQuery(
     ["flowers"],
-    async (f: any = {}) => await getFlowersFunction(f),
+    async (f?: any) => await getFlowersFunction(f),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {
@@ -27,19 +25,14 @@ const HomePage = () => {
 
   let flowers = Array.isArray(data?.items) ? data.items : [];
 
-  // effect
-  useEffect(() => {
-    getFlowersFunction({});
-  }, []);
-
   return (
     <div className="min-h-screen">
       <section className="pt-[80px]">
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(./src/assets/images/purpleFl.png)`,
-            backgroundSize: isTablet ? "100%" : "200%",
-            backgroundPosition: "0% 50%",
+            backgroundSize: isTablet ? "100%" : "auto 100%",
+            backgroundPosition: "50% 50%",
             backgroundRepeat: "no-repeat",
           }}
           className="min-h-[500px] text-[#FFFFFF]"
@@ -53,8 +46,8 @@ const HomePage = () => {
             Explore between more than 8.427 sightings
           </p>
           <div
-            className="mx-auto mt-[58px] [&_input]:w-[307px] md:[&_input]:w-[458px] lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px]
-           flex justify-center"
+            className="mx-auto mt-[58px] [&_input]:w-[307px] md:[&_input]:w-[458px]
+             lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px] flex justify-center"
           >
             <SearchInputComponent
               placeholder={"Looking for something specific?"}

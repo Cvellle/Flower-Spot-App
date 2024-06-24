@@ -14,6 +14,7 @@ module.exports = {
         montserat: ['Montserat, sans-serif'],
       },
       screens: {
+        s: '440px',
         md: '768px',
         lg: '1125px',
       },
@@ -21,6 +22,7 @@ module.exports = {
         center: true,
         padding: '1rem',
         screens: {
+          s: '440px',
           md: '768px',
           lg: '1125px',
         },

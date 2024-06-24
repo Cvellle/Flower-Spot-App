@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { CommentSVG } from "../assets/icons/Comment";
-import { HeartSVG } from "../assets/icons/HeartSvg";
-import { LocationSvg } from "../assets/icons/LocationSvg";
-import useStore from "../store";
-import { useEffect } from "react";
 import { getSightingsFunction } from "../api/appApi";
 import { toast } from "react-toastify";
 import { mockedISightings } from "../shared/data/mockedData/mockedSighints";
+import SightingItem from "../components/SightingItem";
+import { isDesktop } from "../shared/constants/screenMatch";
+import { useNavigate } from "react-router-dom";
 
 const Sightings = () => {
-  const store = useStore();
+  const navigate = useNavigate();
+
+  // started and left as an example - here because the form register
+  // mocked data given - because of cors
   const { data, isLoading } = useQuery(
     ["sightings"],
-    async (s: any = {}) => await getSightingsFunction(s),
+    async () => await getSightingsFunction(),
     {
       onError(error) {
         toast.error((error as any).response.data.message, {
@@ -22,94 +23,59 @@ const Sightings = () => {
     }
   );
 
-  useEffect(() => {
-    getSightingsFunction({});
-  }, []);
-
-  // let sightings = Array.isArray(data?.items) ? data.items : [];
   // mocked data given
   let sightings = mockedISightings;
 
   return (
     <>
-      <section className="min-h-screen pt-[35px] flex flex-wrap justify-center pb-[16px]">
-        <div className="text-[#949EA0] [&>*]:text-center">
-          <h2 className="text-[24] leading-[40px]">Add New Sighting</h2>
-          <h3 className="my-[13px] text-[12px] leading-[17px]">
-            Explore between more than 8.427 sightings
-          </h3>
+      <section className="pt-[35px] flex flex-wrap justify-center">
+        <div className="text-[#949EA0] [&>*]:text-center flex mt-[80px] lg:w-[1180px]">
+          <div className="lg:w-[33%]"></div>
+          <div className="lg:w-[33%]">
+            <h2 className="text-[24] lg:text-[40px] leading-none">
+              Sighting List
+            </h2>
+            <h3 className="mt-[13px] text-[12px] lg:text-[17ox] leading-none">
+              Explore between more than 8.427 sightings
+            </h3>
+          </div>
+          <div className="lg:w-[33%] flex lg:justify-end items-start">
+            {isDesktop ? (
+              <button
+                onClick={() => {
+                  navigate("/flower/1/newSighting");
+                }}
+                style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+                className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
+        text-[14px] font-[500] text-[#FFFFFF]"
+              >
+                + Add New Sighting
+              </button>
+            ) : null}
+          </div>
         </div>
-        {sightings?.map((item, i) => (
+      </section>
+      <section className="mx-auto lg:max-w-[1220px] mt-[20px] flex flex-wrap justify-start p-[12px]">
+        {sightings?.map((item: ISighting) => (
           <div
-            key={i}
-            className="w-[100%] md:w-[232px]  
-              px-[16px] py-[8px] md:m-[10px] bg-[rgba(0, 0, 0, 0.05)]"
+            key={item.id}
+            className="p-[8px] w-[100%] md:w-[33%] lg:max-w-[25%]"
           >
-            <div
-              style={{ boxShadow: "0px 15px 30px 0px #0000000D" }}
-              className="h-[439px] md:h-[498px] flex flex-col"
-            >
-              <div className="mt-[20px] mb-[-42.4px] relative z-[10]">
-                <div className="flex items-center pl-[20px] rounded-[1rem] ml-[20px] w-[136px] h-[22.04px] bg-[white]">
-                  <LocationSvg height="14" width="10" />
-                  <span className="ml-[10px] text-[#FBDDCE] text-[12px]">
-                    San Fra
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div
-                  style={{
-                    backgroundImage: `url(${"url(../src/assets/images/purpleFl.png)"})`,
-                  }}
-                  className="w-full h-[246.83px]"
-                ></div>
-                <div className="flex items-center mt-[23.17px]">
-                  <div
-                    style={{
-                      backgroundImage: `url(../src/assets/images/purpleFl.png)`,
-                    }}
-                    className="ml-[20px] w-[40px] h-[40px] rounded-full"
-                  ></div>
-                  <div className="flex flex-col justify-between h-[30px] ml-[43.45px]">
-                    <p className="text-[15px] leading-[15px] text-[#334144] font-[300]">
-                      Miical bebe
-                    </p>
-                    <p className="italic text-[12px] leading-[12px] text-[#949EA0]">
-                      Adam asd
-                    </p>
-                  </div>
-                </div>
-                <div className="flex justify-center mt-[15px] px-[27.64px]">
-                  <p
-                    className="italic text-[12px] leading-[14.63px] text-[#949EA0]
-             w-full h-[54.65px] font-montserrat tracking-[1.6px] text-justify
-             overflow-hidden overflow-ellipsis"
-                  >
-                    {item?.description}
-                  </p>
-                </div>
-                <div className="flex justify-center">
-                  <div className="h-[0.8px] w-[331.71px] bg-[#E8E9ED] mt-[15px]"></div>
-                </div>
-              </div>
-              <div className="flex justify-between text-[12px] leading-none text-[#949EA0] h-[100%]">
-                <div className="flex-[50%] flex items-end mb-[-8px] ">
-                  <div className="ml-[20px] mr-[30px]">
-                    <CommentSVG />
-                  </div>{" "}
-                  <span>{item?.commentCount + " Comments"}</span>
-                </div>
-                <div className="flex-[50%] flex items-end mb-[-8px]">
-                  <div className="ml-[20px] mr-[30px]">
-                    <HeartSVG />
-                  </div>{" "}
-                  <span>{item?.likeCount + " Favorites"}</span>
-                </div>
-              </div>
-            </div>
+            <SightingItem item={item} />
           </div>
         ))}
+        <div className="w-full flex">
+          <button
+            onClick={() => {
+              navigate("/flower/1/newSighting");
+            }}
+            style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+            className="my-[60px] mx-auto bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
+        text-[14px] font-[500] text-[#FFFFFF]"
+          >
+            + Add New Sighting
+          </button>
+        </div>
       </section>
     </>
   );

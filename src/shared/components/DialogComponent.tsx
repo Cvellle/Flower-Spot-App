@@ -1,5 +1,6 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import { CloseSvg } from "../../assets/icons/CloseSvg";
+import useStore from "../../store";
 
 export default function DialogComponent({
   isOpen,
@@ -10,12 +11,31 @@ export default function DialogComponent({
   children: ReactElement;
   closeHandler: () => void;
 }) {
+  const store = useStore();
+
+  useEffect(() => {
+    isOpen !== null && store.setDialogOpen(isOpen);
+  }, [isOpen]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeHandler();
+      }
+      return () => {
+        document.removeEventListener("keydown", () => {
+          return;
+        });
+      };
+    });
+  }, [isOpen]);
+
   return (
     <>
       {isOpen ? (
         <>
           <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto 
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto
           fixed inset-0 z-50 outline-none focus:outline-none"
           >
             <div
@@ -27,11 +47,11 @@ export default function DialogComponent({
             <div
               className="fixed md:relative bottom-[0] h-[calc(100vh_-_80px)] md:h-[unset] 
             w-full md:w-auto mx-auto min-w-full md:min-h-[0] md:min-w-[unset] z-50 md:flex md:items-center md:mt-[71px]
-            bg-[#FFFFFF] md:bg-[transparent]"
+            bg-[#FFFFFF] md:bg-[transparent] overflow-y-auto"
             >
-              <div className="flex justify-center relative overflow-y-scroll md:overflow-y-hidden">
+              <div className="flex justify-center relative overflow-y-scroll md:overflow-y-auto">
                 <div
-                  className="absolute top-[20px] right-[20px] cursor-pointer"
+                  className="absolute top-[20px] right-[20px] cursor-pointer overflow-y-auto"
                   onClick={() => {
                     closeHandler();
                   }}

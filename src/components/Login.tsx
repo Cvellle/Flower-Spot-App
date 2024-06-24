@@ -2,11 +2,10 @@ import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import useStore from "../store";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getMeFn, loginUserFn } from "../api/authApi";
 import FormInput from "./FormInput";
-import { saveTokens } from "../shared/helpers/authHelpers";
+import { getTokens, saveTokens } from "../shared/helpers/authHelpers";
 import { useState } from "react";
 import Message from "./Message";
 import { toast } from "react-toastify";
@@ -28,7 +27,6 @@ interface ILogInProps {
 }
 
 const LogIn = ({ successHandler }: ILogInProps) => {
-  const store = useStore();
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const methods = useForm<LoginInput>({
@@ -38,27 +36,25 @@ const LogIn = ({ successHandler }: ILogInProps) => {
   const { data } = useQuery(["user"], async () => await getMeFn(), {
     staleTime: 9000000,
     cacheTime: 9000000,
-    onError(error) {
-      toast.error((error as any).response.data.message, {
-        position: "top-right",
-      });
-    },
+    enabled: !!getTokens().accessToken,
   });
-
-  const {
-    mutate: loginUser,
-    // data,
-    isSuccess,
-  } = useMutation((userData: LoginInput) => loginUserFn(userData), {
-    onSuccess(data) {
-      saveTokens(data);
-    },
-    onError(error: any) {
-      toast.error((error as any).response.data.message, {
-        position: "top-right",
-      });
-    },
-  });
+  const queryClient = useQueryClient();
+  const { mutate: loginUser, isSuccess } = useMutation(
+    (userData: LoginInput) => loginUserFn(userData),
+    {
+      onSuccess(data) {
+        queryClient.refetchQueries();
+        saveTokens(data);
+        queryClient.refetchQueries();
+        setSuccessMessage(true);
+      },
+      onError(error: any) {
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
+      },
+    }
+  );
 
   const { handleSubmit } = methods;
 
@@ -87,7 +83,7 @@ const LogIn = ({ successHandler }: ILogInProps) => {
           </button>
         </Message>
       ) : (
-        <div className="w-[380px] text-[#334144]">
+        <div className="max-w-[380px] m-[5px] text-[#334144]">
           <h2
             className="m-[30px] text-center text-[20px] leading-none block h-[20px] font-[500] font-ubuntu
          text-[#334144]"
@@ -97,12 +93,12 @@ const LogIn = ({ successHandler }: ILogInProps) => {
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmitHandler)}
-              className="flex flex-wrap [&_input]:mb-[10px]"
+              className="flex flex-wrap"
             >
-              <div className="w-[380px]">
+              <div className="w-[100%]">
                 <FormInput label="Email" name="email" />
               </div>
-              <div className="w-[380px]">
+              <div className="w-[100%] mt-[10px]">
                 <FormInput label="Email" name="password" type={"password"} />
               </div>
               <button

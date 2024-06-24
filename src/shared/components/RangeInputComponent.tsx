@@ -8,7 +8,7 @@ export default function RangeInputComponent() {
       className="range_input_comp"
       style={{
         maxHeight: "102px",
-        maxWidth: "375px",
+        maxWidth: "385px",
         paddingTop: "51px",
       }}
     >
@@ -19,7 +19,15 @@ export default function RangeInputComponent() {
         }}
       >
         <div className="range range2">
-          <input min={1} type="range" id="range" value={rangeValue} />
+          <input
+            min={1}
+            type="range"
+            id="range"
+            value={rangeValue}
+            onChange={(e) => {
+              return;
+            }}
+          />
         </div>
       </div>
 
@@ -32,25 +40,21 @@ export default function RangeInputComponent() {
         }}
       >
         <div
-          className="range range3"
+          className="range range3 w-[195px] s:w-[295px]"
           style={{
-            background: `url(../src/assets/icons/track.png) center center no-repeat, url(../src/assets/icons/point.png) left top 7px no-repeat, url(../src/assets/icons/point.png) center top 7px no-repeat, url(../src/assets/icons/point.png) right top 7px no-repeat`,
+            background: `url(/src/assets/icons/track.png) center center no-repeat, url(/src/assets/icons/point.png) left top 7px no-repeat, url(/src/assets/icons/point.png) center top 7px no-repeat, url(/src/assets/icons/point.png) right top 7px no-repeat`,
             paddingTop: "10px",
             marginTop: "-10px",
             paddingBottom: "10px",
             marginBottom: "-10px",
-            width: "195px",
           }}
         >
           <input
-            style={{
-              width: "285px",
-            }}
             type="range"
             min={1}
             id="range3"
             value={rangeValue}
-            className="range3"
+            className="range3 w-[285px] s:w-[397px]"
             onChange={(e) => {
               setRangeValue(+e.target.value);
             }}
@@ -59,7 +63,6 @@ export default function RangeInputComponent() {
       </div>
       <div
         style={{
-          minWidth: "285px",
           position: "relative",
           zIndex: 5,
           padding: "11px 45px 0 45px",
@@ -68,6 +71,7 @@ export default function RangeInputComponent() {
           alignItems: "flexStart",
           justifyContent: "space-between",
         }}
+        className="w-[285px] s:w-[397px]"
       >
         <div className="w-[40px] flex justify-center ml-[-17px]">1 km</div>
         <div>5 km</div>

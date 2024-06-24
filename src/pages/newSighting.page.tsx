@@ -5,12 +5,13 @@ import { PhotoSvg } from "../assets/icons/PhotoSvg";
 import FormInput from "../components/FormInput";
 import TextareaComponent from "../components/TextareaComponent";
 import { useMutation } from "@tanstack/react-query";
-import { object, string, TypeOf, z } from "zod";
+import { any, object, string, TypeOf, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { useParams } from "react-router-dom";
 import { addNewSightingFn } from "../api/appApi";
+import { isDesktop } from "../shared/constants/screenMatch";
 
 export type INewSightingInputs = TypeOf<typeof registerSchema>;
 
@@ -23,10 +24,10 @@ interface INewSigthing {
 }
 
 const registerSchema = object({
-  name: string().min(1, "Full name is required").max(100),
-  photo: string(),
-  location: string().min(1, "Last name is required").max(100),
-  description: string().min(1, "Last name is required").max(100),
+  name: string().min(1, "Title is required").max(100),
+  photo: any().refine((files) => files?.length == 1, "Image is required."),
+  location: string().min(1, "Coordinates are required").max(100),
+  description: string().min(1, "Description is required").max(100),
 });
 
 const NewSighting = () => {
@@ -58,7 +59,6 @@ const NewSighting = () => {
     if (isSubmitSuccessful) {
       reset();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<any> = (values) => {
@@ -78,12 +78,12 @@ const NewSighting = () => {
       <section className="pt-[80px]">
         <div
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(../../src/assets/images/map_sm.png)`,
+            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
             backgroundSize: "190% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "top 0% left 50%",
           }}
-          className="h-[95.23vw] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
+          className="lg:absolute lg:w-full h-[95.23vw] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
         >
           <div className="md:flex md:items-center">
             <div className="absolute left-[28.57%] top-[51.42vw]">
@@ -92,9 +92,6 @@ const NewSighting = () => {
           </div>
           <div className="flex pt-[22px]">
             <button
-              onClick={() => {
-                return;
-              }}
               className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF]"
             >
@@ -107,42 +104,47 @@ const NewSighting = () => {
         style={{
           boxShadow: "0px 15px 30px 0px #0000000D",
         }}
-        className="mt-[-180px] px-[16px] flex flex-wrap"
+        className="lg:mx-auto lg:max-w-[1180px] mt-[-180px] lg:mt-[324px] px-[16px] flex flex-wrap z-[5] relative"
       >
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmitHandler)}
-            className="pt-[35px] w-full px-[24px] bg-[#FFFFFF]"
+            className="lg:flex lg:flex-wrap pt-[35px] w-full px-[24px] bg-[#FFFFFF]"
           >
-            <div className="text-[#949EA0] [&>*]:text-center">
+            <div className="text-[#949EA0] [&>*]:text-center w-[100%]">
               <h2 className="text-[24] leading-[40px]">Add New Sighting</h2>
               <h3 className="my-[13px] text-[12px] leading-[17px]">
                 Explore between more than 8.427 sightings
               </h3>
             </div>
-            <div className="mt-[20px]">
-              <FormInput name="name" label="Title of the sighting" />
+            <div>
+              <div className="mt-[20px] lg:mt-0 lg:w-[550px]">
+                <FormInput name="name" label="Title of the sighting" />
+              </div>
             </div>
-            <div className="mt-[20px]">
+            <div className="mt-[20px] lg:mt-0 lg:w-[300px] lg:ml-[20px]">
               <FormInput name="location" label="Coordinates of the sighting" />
             </div>
-            <div className="mt-[20px] z-10 relative">
-              <FormInput name="photo" type="file" />
-            </div>
-            <div
-              style={{
-                boxShadow: "0px 15px 30px 0px #DF9186",
-              }}
-              className="w-full rounded-[3.2px] bg-[#FFFFFF]
+            <div className="relative w-full lg:w-[200px] lg:ml-auto mt-[20px] lg:mt-0">
+              <div className="z-10 relative lg:w-[200px]">
+                <FormInput name="photo" type="file" />
+              </div>
+              <div
+                style={{
+                  boxShadow: "0px 15px 30px 0px #DF9186",
+                }}
+                className="w-full w-full lg:w-[200px] rounded-[3.2px] bg-[#FFFFFF]
                text-[13px] leading-none h-[50px]
-               mt-[-50px] relative font-ubuntu justify-center flex items-center
-               border-[1px] border-current [#DF9186] text-[#DF9186]"
-            >
-              <PhotoSvg />
-              <span className="ml-[10px] font-[500]">Add a Photo</span>
+               font-ubuntu justify-center flex items-center
+               border-[1px] border-current mb-[#DF9186] text-[#DF9186] absolute top-[0px]"
+              >
+                <PhotoSvg />
+                <span className="ml-[10px] font-[500]">Add a Photo</span>
+              </div>
             </div>
-            <div className="mt-[20px] relative z-[20]">
+            <div className="mt-[20px] relative z-[20] lg:w-full [&_.adjustable]:h-[242px] lg:[&_.adjustable]:h-[250px]:h-[150px]">
               <TextareaComponent
+                height={isDesktop ? "150px" : "242px"}
                 name={"description"}
                 label="Write a description…"
               />
