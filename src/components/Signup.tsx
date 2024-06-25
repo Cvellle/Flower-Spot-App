@@ -40,7 +40,6 @@ const SignUp = ({ successHandler }: ISignUp) => {
     {
       onSuccess() {
         setSuccessMessage(true);
-        successHandler();
       },
       onError(error: any) {
         toast.error((error as any).response.data.message, {

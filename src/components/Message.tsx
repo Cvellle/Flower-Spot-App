@@ -7,9 +7,9 @@ interface IMessage {
 
 const Message: FC<IMessage> = ({ text, children = null }) => {
   return (
-    <div className="px-[30px] py-[50px] flex flex-wrap justify-center items-center w-[full] h-[100%]">
-      <p>{text}</p>
-      {children && children}
+    <div className="flex flex-wrap px-[30px] py-[50px] flex flex-wrap justify-center items-center w-[full] h-[100%]">
+      <p className="w-full flex justify-center ">{text}</p>
+      <div className="w-full flex justify-center">{children && children}</div>
     </div>
   );
 };
