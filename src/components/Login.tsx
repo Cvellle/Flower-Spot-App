@@ -56,7 +56,7 @@ const LogIn = ({ successHandler }: ILogInProps) => {
 
   return (
     <section
-      className="bg-[#FFFFFF] [&_button]:rounded-[3.2px] grid
+      className="mt-[120px] md:mt-[unset] bg-[#FFFFFF] [&_button]:rounded-[3.2px] grid
        place-items-start justify-center h-[290px] w-[420px]
        font-ubuntu rounded-[3.2px] shadow-[0px 15px 30px 0px #0000000D]"
     >
