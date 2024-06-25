@@ -55,7 +55,7 @@ export default function DialogComponent({
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed z-45 inset-0 bg-black"></div>
+          <div className="fixed z-45 inset-0 bg-[#00000080]"></div>
         </>
       ) : null}
     </>
