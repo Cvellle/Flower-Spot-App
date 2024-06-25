@@ -36,7 +36,7 @@ npm run test
 
 Commits and are done to the private GitHub repository.
 
-Project has been cloned from remote repository and conains .git, chech it with the command
+Project has been cloned from remote repository and conains .git, check it with the command
 
 ```
 git rev-parse --is-inside-work-tree
