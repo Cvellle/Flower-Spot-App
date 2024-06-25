@@ -78,20 +78,26 @@ const NewSighting = () => {
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
-            backgroundSize: isTablet ? "100% auto" : "190% auto",
+            backgroundSize: isDesktop ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "top 0px left 50%, top -8.19vw left 50%",
+            backgroundPosition: isDesktop
+              ? "top 0px left 50%, top -80px left 50%"
+              : "top 0px left 50%, top 0vw left 50%",
           }}
           className="md:absolute md:w-full h-[95.23vw] md:h-[400px] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
         >
-          <div className="md:flex md:items-center">
-            <div className="absolute left-[28.57%] md:left-[32.78vw] top-[51.42vw] md:top-[11.22vw]">
-              <LocationSvg height="3.27vw" width="2.45vw" />
+          <div className="md:flex lg:items-center">
+            <div className="absolute left-[28.57%] lg:left-[32.78vw] top-[calc(30.90vw_+_80px)] lg:top-[calc(17.78vw_-_60px)]">
+              {isDesktop ? (
+                <LocationSvg height="3.27vw" width="2.45vw" />
+              ) : (
+                <LocationSvg height="6.81vw" width="9.09vw" />
+              )}
             </div>
           </div>
-          <div className="flex pt-[22px] md:w-full md:max-w-[1180px] md:mx-auto md:justify-end md:mt-[224px]">
+          <div className="flex pt-[22px] lg:w-full lg:max-w-[1180px] lg:mx-auto lg:justify-end lg:mt-[224px]">
             <button
-              className="md:mr-[40px] bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
+              className="lg:mr-[40px] bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[200px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF]"
             >
               View on Google Maps

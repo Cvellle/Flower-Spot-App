@@ -10,7 +10,7 @@ const FlowersPage = () => {
   const [filterState, setFilterState] = useState<string>("");
 
   // query hook
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["flowers"],
     async () => await getFlowersFunction(),
     {
@@ -22,7 +22,7 @@ const FlowersPage = () => {
     }
   );
 
-  let flowers = Array.isArray(data?.items) ? data.items : [];
+  let flowers = Array.isArray(data?.items) ? data?.items : [];
 
   return (
     <div className="min-h-screen">

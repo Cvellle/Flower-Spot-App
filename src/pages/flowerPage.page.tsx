@@ -104,7 +104,7 @@ const FlowerPage = () => {
         >
           <button
             onClick={() => {
-              navigate("newSighting");
+              navigate("new-sighting");
             }}
             style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
             className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]

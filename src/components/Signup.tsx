@@ -2,7 +2,6 @@ import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
-
 import { useMutation } from "@tanstack/react-query";
 import { signUpUserFn } from "../api/authApi";
 import FormInput from "./FormInput";
@@ -36,21 +35,20 @@ const SignUp = ({ successHandler }: ISignUp) => {
     resolver: zodResolver(registerSchema),
   });
 
-  const {
-    mutate: registerUser,
-    data,
-    isSuccess,
-  } = useMutation((userData: RegisterInput) => signUpUserFn(userData), {
-    onSuccess(data) {
-      setSuccessMessage(true);
-      successHandler();
-    },
-    onError(error: any) {
-      toast.error((error as any).response.data.message, {
-        position: "top-right",
-      });
-    },
-  });
+  const { mutate: registerUser } = useMutation(
+    (userData: RegisterInput) => signUpUserFn(userData),
+    {
+      onSuccess() {
+        setSuccessMessage(true);
+        successHandler();
+      },
+      onError(error: any) {
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
+      },
+    }
+  );
 
   const {
     reset,
@@ -118,7 +116,7 @@ const SignUp = ({ successHandler }: ISignUp) => {
                 </div>
                 <div
                   className="z-[9] absolute top-0 w-full rounded-[3.2px] bg-[#DFE5EA] text-[13px] leading-none h-[50px]
-                    font-ubuntu text-[13px] pt-[11px] pl-[15px] flex items-center pt-[10px]
+                    font-ubuntu text-[13px] pt-[12px] pl-[15px] flex items-center pt-[10px]
             "
                 >
                   {getDate(methods.watch().dateOfBirth)}

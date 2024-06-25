@@ -2,6 +2,10 @@ import axios from "axios";
 import { refreshToken } from "../api/authApi";
 import { saveTokens } from "../shared/helpers/authHelpers";
 
+enum BareerRoutesEnum {
+  Me = "account/me",
+}
+
 export const apiURL =
   "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online";
 
@@ -13,10 +17,6 @@ export const API = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-enum BareerRoutesEnum {
-  Me = "account/me",
-}
 
 const bareerRoutesArray: string[] = [BareerRoutesEnum.Me];
 

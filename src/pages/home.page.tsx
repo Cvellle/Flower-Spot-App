@@ -23,7 +23,7 @@ const HomePage = () => {
     }
   );
 
-  let flowers = Array.isArray(data?.items) ? data.items : [];
+  let flowers = Array.isArray(data?.items) ? data?.items : [];
 
   return (
     <div className="min-h-screen pt-[80px]">

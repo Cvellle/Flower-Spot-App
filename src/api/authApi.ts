@@ -1,11 +1,7 @@
 import { LoginInput } from "../components/Login";
 import { RegisterInput } from "../components/Signup";
-
 import { API } from "../services/axiosService";
-
 import { IRegisterResponse, IUser } from "./types";
-
-API.defaults.headers.common["Content-Type"] = "application/json";
 
 export const refreshToken = async (refreshToken: {
   refreshToken: string | null;

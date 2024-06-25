@@ -2,7 +2,7 @@
 
 ## Unzip and open
 
-Unzip the folder, than type in the folder where is the project:
+Unzip the folder, than type in the terminal, in the directory where is the project folder:
 
 ```
 cd Flower-Spot-App
@@ -18,13 +18,19 @@ npm install
 npm run dev
 ```
 
+And open it on http://localhost:3000/ in your browser
+
+## Build
+
+```
+npm run build
+```
+
 ## Testing
 
 ```
 npm run test
 ```
-
-open it on http://localhost:3000/ in your browser
 
 ## Git - check is it a git folder
 
@@ -34,7 +40,7 @@ git rev-parse --is-inside-work-tree
 
 ## Additional info
 
-Tests are in tests folder.
+Tests are in tests folder. Test is done for Profile.tsx component
 
 Settings link provided in header on desktop - to see it, since it is done.
 
@@ -52,10 +58,12 @@ Search input works - form input, textarea, range, switch and search inputs are w
 
 **2.** **Typescript**
 
-**4.** **React Query** - useQuery, useMutation, cache and stale, enabled
+**3.** **React Query** - useQuery, useMutation, cache and stale, enabled
 
 **4.** **Axios** - interceptors
 
-**5.** **Other** - jest, loadash, deboubce, hiding header
+**5.** **React-router** - protected routes
+
+**6.** **Other** - jest, loadash, deboubce, hiding header
 
 :sparkles:

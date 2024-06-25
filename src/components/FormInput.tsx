@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
         type={type}
         className={`${
           type === "date" || type === "file" ? "form-control" : ""
-        } text-[13px] pt-[11px] pl-[15px] block w-full h-[50px] rounded-[3.2px] bg-[#DFE5EA]
+        } text-[13px] pt-[12px] pl-[15px] block w-full h-[50px] rounded-[3.2px] bg-[#DFE5EA]
          text-[13px] color-[#334144]`}
         {...register(name)}
       />
