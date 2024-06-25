@@ -5,7 +5,7 @@
 Unzip the folder, than type in the terminal, in the directory where is the project folder:
 
 ```
-cd Flower-Spot-App
+cd FlowrSpot-Nikola-Cvetic
 ```
 
 ## Terminal instructions - install and start
