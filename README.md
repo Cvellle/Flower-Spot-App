@@ -34,6 +34,10 @@ npm run test
 
 ## Git - check is it a git folder
 
+Commits and are done to the private GitHub repository.
+
+Project has been cloned from remote repository and conains .git, chech it with the command
+
 ```
 git rev-parse --is-inside-work-tree
 ```
