@@ -30,7 +30,7 @@ const HomePage = () => {
       <section>
         <div
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(./src/assets/images/purpleFl.png)`,
+            backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(/assets/images/purpleFl.png)`,
             backgroundSize: isTablet ? "100%" : "auto 100%",
             backgroundPosition: "50% 50%",
             backgroundRepeat: "no-repeat",

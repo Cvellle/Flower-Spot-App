@@ -223,7 +223,7 @@ const Header = () => {
                           </p>
                           <div
                             style={{
-                              background: `url(/src/assets/images/user.png) no-repeat`,
+                              background: `url(/assets/images/user.png) no-repeat`,
                               backgroundSize: "40px 40px",
                             }}
                             className="ml-[15px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"

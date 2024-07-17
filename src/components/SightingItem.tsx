@@ -27,7 +27,7 @@ const SightingItem = ({ item }: { item: ISighting }) => {
               navigate("/sightings/" + item.id);
             }}
             style={{
-              backgroundImage: `url(${"/src/assets/images/blueFl.png"})`,
+              backgroundImage: `url(${"/assets/images/blueFl.png"})`,
               backgroundSize: "100% auto",
               backgroundPosition: `10% 10%`,
             }}
@@ -39,7 +39,7 @@ const SightingItem = ({ item }: { item: ISighting }) => {
                 navigate("/user/" + item.authorId);
               }}
               style={{
-                backgroundImage: `url(/src/assets/images/user1.png)`,
+                backgroundImage: `url(/assets/images/user1.png)`,
                 backgroundSize: `contain`,
               }}
               className="ml-[20px] w-[40px] h-[40px] rounded-full cursor-pointer"

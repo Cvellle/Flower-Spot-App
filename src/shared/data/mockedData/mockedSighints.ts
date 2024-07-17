@@ -8,7 +8,7 @@ export const mockedSightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "/src/assets/images/blueFl.png",
+    pictureUrl: "/assets/images/blueFl.png",
     description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
@@ -20,7 +20,7 @@ export const mockedSightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "/src/assets/images/blueFl.png",
+    pictureUrl: "/assets/images/blueFl.png",
     description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
@@ -32,7 +32,7 @@ export const mockedSightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "/src/assets/images/blueFl.png",
+    pictureUrl: "/assets/images/blueFl.png",
     description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
   {
@@ -44,7 +44,7 @@ export const mockedSightings: ISighting[] = [
     longitude: 9.227568,
     commentCount: 0,
     likeCount: 3,
-    pictureUrl: "/src/assets/images/blueFl.png",
+    pictureUrl: "/assets/images/blueFl.png",
     description: `Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …`,
   },
 ];

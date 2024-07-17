@@ -63,17 +63,17 @@ const SightingDetailPage = () => {
 
   const items = [
     {
-      image: "/src/assets/images/blueFl.png",
+      image: "/assets/images/blueFl.png",
       desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
       userId: "1",
     },
     {
-      image: "/src/assets/images/blueFl.png",
+      image: "/assets/images/blueFl.png",
       desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
       userId: "1",
     },
     {
-      image: "/src/assets/images/blueFl.png",
+      image: "/assets/images/blueFl.png",
       desc: 'Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and κώδων "bell") is a species of herbaceous flowering perennial plant of the …',
       userId: "1",
     },
@@ -84,7 +84,7 @@ const SightingDetailPage = () => {
       <section className="pt-[80px]">
         <div
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
+            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/assets/images/map_sm.png)`,
             backgroundSize: isDesktop ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: isDesktop
@@ -132,7 +132,7 @@ const SightingDetailPage = () => {
       >
         <div
           style={{
-            backgroundImage: `url(/src/assets/images/blueFl.png)`,
+            backgroundImage: `url(/assets/images/blueFl.png)`,
             backgroundSize: "170% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "top 0% left 0%",
@@ -144,7 +144,7 @@ const SightingDetailPage = () => {
             <div className="flex items-center mt-[30px] lg:w-full">
               <div
                 style={{
-                  backgroundImage: `url(/src/assets/images/user1.png)`,
+                  backgroundImage: `url(/assets/images/user1.png)`,
                   backgroundSize: "100% 100%",
                 }}
                 className="w-[50px] h-[50px] rounded-full"
@@ -214,7 +214,7 @@ const SightingDetailPage = () => {
                       navigate("/user/" + item.userId);
                     }}
                     style={{
-                      backgroundImage: `url(/src/assets/images/user1.png)`,
+                      backgroundImage: `url(/assets/images/user1.png)`,
                       backgroundSize: "100% 100%",
                     }}
                     className="w-[40px] h-[40px] rounded-full"

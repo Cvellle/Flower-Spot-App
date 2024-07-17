@@ -14,7 +14,7 @@ const FlowerItem = ({ item }: { item: IFlower }) => {
       }}
       key={item.id}
       style={{
-        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${"/src/assets/images/blueFl.png"})`,
+        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${"/assets/images/blueFl.png"})`,
         backgroundPosition: "50% 50%",
         backgroundSize: "auto 100%",
       }}

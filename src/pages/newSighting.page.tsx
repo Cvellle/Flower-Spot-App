@@ -77,7 +77,7 @@ const NewSighting = () => {
       <section className="pt-[80px]">
         <div
           style={{
-            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/src/assets/images/map_sm.png)`,
+            backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/assets/images/map_sm.png)`,
             backgroundSize: isDesktop ? "100% auto" : "190% auto",
             backgroundRepeat: "no-repeat",
             backgroundPosition: isDesktop

@@ -26,7 +26,7 @@ const Profile = ({ successHandler }: IProfile) => {
         <div className="flex items-center">
           <div
             style={{
-              backgroundImage: `url(/src/assets/images/user.png)`,
+              backgroundImage: `url(/assets/images/user.png)`,
               backgroundSize: "80px 80px",
             }}
             className="w-[80px] h-[80px] rounded-full"

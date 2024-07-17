@@ -12,7 +12,7 @@ const User = () => {
           <div className="md:flex md:items-center">
             <div
               style={{
-                backgroundImage: `url(/src/assets/images/user1.png)`,
+                backgroundImage: `url(/assets/images/user1.png)`,
                 backgroundSize: `contain`,
               }}
               className="w-[80px] h-[80px] rounded-full mt-[35px] md:mr-[30px]"

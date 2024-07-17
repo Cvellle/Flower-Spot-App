@@ -36,7 +36,7 @@ const FlowerPage = () => {
             isDesktop
               ? {
                   background:
-                    'url("/src/assets/images/orange.png") top 50% left 0 no-repeat, linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.4) 100%)',
+                    'url("/assets/images/orange.png") top 50% left 0 no-repeat, linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.4) 100%)',
                   backgroundSize: "100% auto, auto 100%",
                   zIndex: -1,
                 }
@@ -47,7 +47,7 @@ const FlowerPage = () => {
           style={
             !isDesktop
               ? {
-                  background: `url(/src/assets/images/purple_small.png)`,
+                  background: `url(/assets/images/purple_small.png)`,
                   backgroundSize: isTablet ? "100% auto" : "auto 100%",
                 }
               : {}
@@ -59,7 +59,7 @@ const FlowerPage = () => {
             <div
               className="absolute w-[280px] h-[350px] bottom-0 left-0"
               style={{
-                background: `url(/src/assets/images/purple_small.png)`,
+                background: `url(/assets/images/purple_small.png)`,
                 backgroundSize: "auto 100%",
                 backgroundPosition: "50% 50%",
               }}
