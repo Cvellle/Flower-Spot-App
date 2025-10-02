@@ -15,10 +15,7 @@ const Sightings = () => {
   const { data, isLoading } = useQuery(
     ['sightings'],
     async () => {
-      // in progress
-      // this only stands because of the eslint error of non using
-      console.log(data, isLoading);
-      await getSightingsFunction();
+      return await getSightingsFunction();
     },
     {
       onError(error: AxiosError<{ message: string }>) {
