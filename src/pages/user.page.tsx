@@ -1,9 +1,9 @@
-import SightingItem from "../components/SightingItem";
-import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
+import SightingItem from '../components/SightingItem';
+import { mockedSightings } from '../shared/data/mockedData/mockedSighints';
 
 const User = () => {
   // mocked data given
-  let sightings = mockedSightings;
+  const sightings = mockedSightings;
 
   return (
     <>

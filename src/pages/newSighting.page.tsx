@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { LocationSvg } from "../assets/icons/LocationSvg";
-import { PhotoSvg } from "../assets/icons/PhotoSvg";
-import FormInput from "../components/FormInput";
-import TextareaComponent from "../components/TextareaComponent";
-import { useMutation } from "@tanstack/react-query";
-import { any, object, string, TypeOf, z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { useParams } from "react-router-dom";
-import { addNewSightingFn } from "../api/appApi";
-import { isDesktop, isTablet } from "../shared/constants/screenMatch";
-import { toast } from "react-toastify";
+import { useEffect } from 'react';
+import { LocationSvg } from '../assets/icons/LocationSvg';
+import { PhotoSvg } from '../assets/icons/PhotoSvg';
+import FormInput from '../components/FormInput';
+import TextareaComponent from '../components/TextareaComponent';
+import { useMutation } from '@tanstack/react-query';
+import { any, object, string, TypeOf } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { addNewSightingFn } from '../api/appApi';
+import { isDesktop } from '../shared/constants/screenMatch';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 export type INewSightingInputs = TypeOf<typeof registerSchema>;
 
@@ -23,29 +24,32 @@ interface INewSigthing {
 }
 
 const registerSchema = object({
-  name: string().min(1, "Title is required").max(100),
-  photo: any().refine((files) => files?.length == 1, "Image is required."),
-  location: string().min(1, "Coordinates are required").max(100),
-  description: string().min(1, "Description is required").max(100),
+  name: string().min(1, 'Title is required').max(100),
+  photo: any().refine((files) => files?.length == 1, 'Image is required.'),
+  location: string().min(1, 'Coordinates are required').max(100),
+  description: string().min(1, 'Description is required').max(100),
 });
 
 const NewSighting = () => {
   const { flowerId } = useParams();
 
-  const methods = useForm<any>({
+  const methods = useForm<INewSightingInputs>({
     resolver: zodResolver(registerSchema),
   });
 
   // left here as an example - cors protected
-  const { mutate: addSighting, data } = useMutation(
+  const { mutate: addSighting } = useMutation(
     (sightingData: INewSigthing) => addNewSightingFn(sightingData),
     {
-      onError(error) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
-        });
+      onError(error: AxiosError<{ message: string }>) {
+        toast.error(
+          error.response?.data.message || 'Sighting creation failed',
+          {
+            position: 'top-right',
+          },
+        );
       },
-    }
+    },
   );
 
   const {
@@ -60,10 +64,10 @@ const NewSighting = () => {
     }
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<any> = (values) => {
-    let testValues = "47.110579, 9.227568";
-    let locationArr = testValues.split(",").map((el: string) => el.trim());
-    addNewSightingFn({
+  const onSubmitHandler: SubmitHandler<INewSightingInputs> = (values) => {
+    const testValues = '47.110579, 9.227568';
+    const locationArr = testValues.split(',').map((el: string) => el.trim());
+    addSighting({
       flowerId: flowerId as string,
       name: values.name,
       description: values.description,
@@ -78,11 +82,11 @@ const NewSighting = () => {
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(249, 249, 249, 0.0001) 0%, #F9F9F9 100%), url(/assets/images/map_sm.png)`,
-            backgroundSize: isDesktop ? "100% auto" : "190% auto",
-            backgroundRepeat: "no-repeat",
+            backgroundSize: isDesktop ? '100% auto' : '190% auto',
+            backgroundRepeat: 'no-repeat',
             backgroundPosition: isDesktop
-              ? "top 0px left 50%, top -80px left 50%"
-              : "top 0px left 50%, top 0vw left 50%",
+              ? 'top 0px left 50%, top -80px left 50%'
+              : 'top 0px left 50%, top 0vw left 50%',
           }}
           className="md:absolute md:w-full h-[95.23vw] md:h-[400px] flex items-start justify-end text-[#334144] px-[40px] md:pl-[30px]"
         >
@@ -107,7 +111,7 @@ const NewSighting = () => {
       </section>
       <section
         style={{
-          boxShadow: "0px 15px 30px 0px #0000000D",
+          boxShadow: '0px 15px 30px 0px #0000000D',
         }}
         className="md:mx-auto md:max-w-[1180px] mt-[-180px] md:mt-[324px] 
         px-[16px] flex flex-wrap z-[5] relative"
@@ -137,7 +141,7 @@ const NewSighting = () => {
               </div>
               <div
                 style={{
-                  boxShadow: "0px 15px 30px 0px #DF9186",
+                  boxShadow: '0px 15px 30px 0px #DF9186',
                 }}
                 className="w-full w-full lg:w-[200px] rounded-[3.2px] bg-[#FFFFFF]
                text-[13px] leading-none h-[50px]
@@ -150,14 +154,14 @@ const NewSighting = () => {
             </div>
             <div className="mt-[20px] relative z-[20] lg:w-full [&_.adjustable]:h-[242px] lg:[&_.adjustable]:h-[250px]:h-[150px]">
               <TextareaComponent
-                height={isDesktop ? "150px" : "242px"}
-                name={"description"}
+                height={isDesktop ? '150px' : '242px'}
+                name={'description'}
                 label="Write a description…"
               />
             </div>
             <button
-              type={"submit"}
-              style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+              type={'submit'}
+              style={{ boxShadow: '0px 15px 20px 0px #EAA89F33' }}
               className="my-[28px] bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[100%] h-[50px]
              rounded-[2.3px] text-[14px] font-[500] text-[#FFFFFF]"
             >

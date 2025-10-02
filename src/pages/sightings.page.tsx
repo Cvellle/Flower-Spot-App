@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSightingsFunction } from "../api/appApi";
-import { toast } from "react-toastify";
-import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
-import SightingItem from "../components/SightingItem";
-import { isDesktop } from "../shared/constants/screenMatch";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
+import { getSightingsFunction } from '../api/appApi';
+import { toast } from 'react-toastify';
+import { mockedSightings } from '../shared/data/mockedData/mockedSighints';
+import SightingItem from '../components/SightingItem';
+import { isDesktop } from '../shared/constants/screenMatch';
+import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 const Sightings = () => {
   const navigate = useNavigate();
@@ -12,19 +13,24 @@ const Sightings = () => {
   // started and left as an example - here because the form register
   // mocked data given - because of cors
   const { data, isLoading } = useQuery(
-    ["sightings"],
-    async () => await getSightingsFunction(),
+    ['sightings'],
+    async () => {
+      // in progress
+      // this only stands because of the eslint error of non using
+      console.log(data, isLoading);
+      await getSightingsFunction();
+    },
     {
-      onError(error) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
+      onError(error: AxiosError<{ message: string }>) {
+        toast.error(error.response?.data?.message || 'An error occurred', {
+          position: 'top-right',
         });
       },
-    }
+    },
   );
 
   // mocked data given
-  let sightings = mockedSightings;
+  const sightings = mockedSightings;
 
   return (
     <>
@@ -43,9 +49,9 @@ const Sightings = () => {
             {isDesktop ? (
               <button
                 onClick={() => {
-                  navigate("/flower/1/new-sighting");
+                  navigate('/flower/1/new-sighting');
                 }}
-                style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+                style={{ boxShadow: '0px 15px 20px 0px #EAA89F33' }}
                 className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF]"
               >
@@ -67,9 +73,9 @@ const Sightings = () => {
         <div className="w-full flex">
           <button
             onClick={() => {
-              navigate("/flower/1/new-sighting");
+              navigate('/flower/1/new-sighting');
             }}
-            style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+            style={{ boxShadow: '0px 15px 20px 0px #EAA89F33' }}
             className="my-[60px] mx-auto bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF]"
           >

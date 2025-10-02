@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import DialogComponent from "../shared/components/DialogComponent";
-import Settings from "./Settings";
-import SignUp from "./Signup";
-import { useAuth } from "../router/useAuth";
-import Profile from "./Profile";
-import { Link, useNavigate } from "react-router-dom";
-import { isDesktop } from "../shared/constants/screenMatch";
+import { useEffect, useState } from 'react';
+import DialogComponent from '../shared/components/DialogComponent';
+import Settings from './Settings';
+import SignUp from './Signup';
+import { useAuth } from '../router/useAuth';
+import Profile from './Profile';
+import { Link, useNavigate } from 'react-router-dom';
+import { isDesktop } from '../shared/constants/screenMatch';
 
-import { NavCloseSgv } from "../assets/icons/NavCloseSvg";
-import LogIn from "./Login";
-import { HamburgerSvg } from "../assets/icons/HamburgerSvg";
+import { NavCloseSgv } from '../assets/icons/NavCloseSvg';
+import LogIn from './Login';
+import { HamburgerSvg } from '../assets/icons/HamburgerSvg';
 
 const Header = () => {
-  const [scrollDir, setScrollDir] = useState("scrolling down");
+  const [scrollDir, setScrollDir] = useState('scrolling down');
 
   useEffect(() => {
     const threshold = 0;
@@ -24,7 +24,7 @@ const Header = () => {
         ticking = false;
         return;
       }
-      setScrollDir(scrollY > lastScrollY ? "scrolling down" : "scrolling up");
+      setScrollDir(scrollY > lastScrollY ? 'scrolling down' : 'scrolling up');
       lastScrollY = scrollY > 0 ? scrollY : 0;
       ticking = false;
     };
@@ -34,16 +34,16 @@ const Header = () => {
         ticking = true;
       }
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, [scrollDir]);
 
   // types
   enum DialogTypes {
-    SignUp = "signUp",
-    LogIn = "logIn",
-    Settings = "settings",
-    Profile = "profile",
+    SignUp = 'signUp',
+    LogIn = 'logIn',
+    Settings = 'settings',
+    Profile = 'profile',
   }
 
   // hooks and consts
@@ -53,12 +53,12 @@ const Header = () => {
 
   //states
   const [showDialog, setShowDialog] = useState<DialogTypes | undefined>(
-    undefined
+    undefined,
   );
   const [navbarOpen, setNavbarOpen] = useState(false);
 
-  let headerVisible = !navbarOpen
-    ? scrollDir === "scrolling up" || window.scrollY <= 80
+  const headerVisible = !navbarOpen
+    ? scrollDir === 'scrolling up' || window.scrollY <= 80
     : true;
 
   return (
@@ -67,26 +67,26 @@ const Header = () => {
         <header className="fixed w-full z-[100] md:z-[10] [&_*]:border-[none] [&_*]:shadow-[none]">
           <nav
             style={{
-              boxShadow: isDesktop ? "0px 15px 30px 0px #0000000D" : "none",
+              boxShadow: isDesktop ? '0px 15px 30px 0px #0000000D' : 'none',
             }}
             className="min-h-[80px] relative flex flex-wrap items-center justify-between bg-[#FFFFFF]"
           >
             <div className="mx-auto lg:max-w-[1220px] flex flex-wrap items-center justify-between h-[80px] w-full">
               <div
                 style={{
-                  boxShadow: isDesktop ? "none" : "0px 15px 30px 0px #0000000D",
+                  boxShadow: isDesktop ? 'none' : '0px 15px 30px 0px #0000000D',
                 }}
                 className="h-[80px] pl-[24.72px] pr-[28px] lg:pr-[3.8px] flex relative flex justify-between w-full lg:w-auto 
              lg:block lg:justify-start lg:flex lg:items-center"
               >
                 <div
                   onClick={() => {
-                    navigate("/");
+                    navigate('/');
                     setShowDialog(undefined);
                   }}
                   className="flex items-center cursor-pointer"
                 >
-                  <div className={"w-[30px] h-[30px]"}>
+                  <div className={'w-[30px] h-[30px]'}>
                     <svg
                       width="30"
                       height="30"
@@ -149,8 +149,8 @@ const Header = () => {
               </div>
               <div
                 className={
-                  "pl-[21px] lg:pl-[0] pr-[28px] lg:pr-[20px] w-full lg:w-[unset] overflow-scroll lg:overflow-hidden min-h-[calc(100vh_-_80px)] lg:min-h-[unset] bg-[#FFFFFF] lg:flex" +
-                  (navbarOpen ? " flex" : " hidden")
+                  'pl-[21px] lg:pl-[0] pr-[28px] lg:pr-[20px] w-full lg:w-[unset] overflow-scroll lg:overflow-hidden min-h-[calc(100vh_-_80px)] lg:min-h-[unset] bg-[#FFFFFF] lg:flex' +
+                  (navbarOpen ? ' flex' : ' hidden')
                 }
               >
                 <ul
@@ -159,7 +159,7 @@ const Header = () => {
                  lg:[&_li]:ml-[50px]"
                 >
                   <li>
-                    <Link to={"/flowers"} className="flex items-center">
+                    <Link to={'/flowers'} className="flex items-center">
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
@@ -171,7 +171,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="mt-[45px] lg:mt-[0]">
-                    <Link to={"sightings"} className="flex items-center">
+                    <Link to={'sightings'} className="flex items-center">
                       <span
                         onClick={() => {
                           setNavbarOpen(false);
@@ -183,7 +183,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="mt-[35px] lg:mt-[0]">
-                    <Link to={"/favorites"} className="flex items-center">
+                    <Link to={'/favorites'} className="flex items-center">
                       <span>Favorites</span>
                     </Link>
                   </li>
@@ -219,12 +219,12 @@ const Header = () => {
                       hasToken && user?.lastName ? (
                         <div className="flex items-center mt-[35px] lg:mt-[0px] lg:min-w-[110px] lg:max-w-[140px]">
                           <p className="flex content-center">
-                            {user?.firstName + " " + user?.lastName}
+                            {user?.firstName + ' ' + user?.lastName}
                           </p>
                           <div
                             style={{
                               background: `url(/assets/images/user.png) no-repeat`,
-                              backgroundSize: "40px 40px",
+                              backgroundSize: '40px 40px',
                             }}
                             className="ml-[15px] lg:mt-[0] w-[40px] h-[40px] rounded-[50%] cursor-pointer"
                             onClick={() => {
@@ -237,11 +237,11 @@ const Header = () => {
                     ) : (
                       <button
                         style={{
-                          boxShadow: "0px 15px 20px 0px #EAA89F33",
+                          boxShadow: '0px 15px 20px 0px #EAA89F33',
                         }}
                         className="w-[140px] h-[41px] my-[52px] lg:my-[0] rounded-[20px] text-[14px]
                      bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] font-[500] text-[#FFFFFF]"
-                        type={"submit"}
+                        type={'submit'}
                         onClick={() => {
                           setShowDialog(DialogTypes.SignUp);
                           setNavbarOpen(false);

@@ -1,5 +1,5 @@
-import React, { ReactElement, useEffect } from "react";
-import { CloseSvg } from "../../assets/icons/CloseSvg";
+import { ReactElement, useEffect } from 'react';
+import { CloseSvg } from '../../assets/icons/CloseSvg';
 
 export default function DialogComponent({
   isOpen,
@@ -11,12 +11,12 @@ export default function DialogComponent({
   closeHandler: () => void;
 }) {
   useEffect(() => {
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
         closeHandler();
       }
       return () => {
-        document.removeEventListener("keydown", () => {
+        document.removeEventListener('keydown', () => {
           return;
         });
       };
@@ -33,7 +33,7 @@ export default function DialogComponent({
           >
             <div
               className="absolute w-[100%] h-[100%] z-40 close-dialog"
-              onClick={(e) => {
+              onClick={() => {
                 closeHandler();
               }}
             ></div>

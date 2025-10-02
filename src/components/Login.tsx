@@ -1,21 +1,21 @@
-import { object, string, TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMeFn, loginUserFn } from "../api/authApi";
-import FormInput from "./FormInput";
-import { getTokens, saveTokens } from "../shared/helpers/authHelpers";
-import { useState } from "react";
-import Message from "./Message";
+import { object, string, TypeOf } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getMeFn, loginUserFn } from '../api/authApi';
+import FormInput from './FormInput';
+import { getTokens, saveTokens } from '../shared/helpers/authHelpers';
+import { useState } from 'react';
+import Message from './Message';
 
 const loginSchema = object({
   email: string()
-    .min(1, "Email address is required")
-    .email("Email Address is invalid"),
+    .min(1, 'Email address is required')
+    .email('Email Address is invalid'),
   password: string()
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 });
 
 export type LoginInput = TypeOf<typeof loginSchema>;
@@ -31,13 +31,13 @@ const LogIn = ({ successHandler }: ILogInProps) => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { data } = useQuery(["user"], async () => await getMeFn(), {
+  useQuery(['user'], async () => await getMeFn(), {
     staleTime: 9000000,
     cacheTime: 9000000,
-    enabled: !!getTokens().accessToken,
+    enabled: getTokens()?.accessToken !== null,
   });
   const queryClient = useQueryClient();
-  const { mutate: loginUser, isSuccess } = useMutation(
+  const { mutate: loginUser } = useMutation(
     (userData: LoginInput) => loginUserFn(userData),
     {
       onSuccess(data) {
@@ -62,7 +62,7 @@ const LogIn = ({ successHandler }: ILogInProps) => {
     >
       {successMessage ? (
         <Message
-          text={"Congratulations! You have successfully logged into FlowrSpot!"}
+          text={'Congratulations! You have successfully logged into FlowrSpot!'}
         >
           <button
             className="text-[#FFFFFF] w-[100px] h-[50px] mt-[10px] mt-[50px] bg-gradient-to-r from-[#ECBCB3]
@@ -91,12 +91,12 @@ const LogIn = ({ successHandler }: ILogInProps) => {
                 <FormInput label="Email" name="email" />
               </div>
               <div className="w-[100%] mt-[10px]">
-                <FormInput label="Email" name="password" type={"password"} />
+                <FormInput label="Email" name="password" type={'password'} />
               </div>
               <button
                 className="w-full h-[50px] mt-[10px] mb-[30px] bg-gradient-to-r from-[#ECBCB3]
                to-[#EAA79E] font-[500] text-[#FFFFFF]"
-                type={"submit"}
+                type={'submit'}
               >
                 Login to your Account
               </button>

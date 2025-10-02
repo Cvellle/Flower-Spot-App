@@ -6,10 +6,10 @@ export const useAuth = () => {
   const { data } = useQuery(["user"], async () => await getMeFn(), {
     staleTime: 9000000,
     cacheTime: 9000000,
-    enabled: !!getTokens().accessToken,
+    enabled: getTokens()?.accessToken !== null,
   });
   return {
     user: data,
-    hasToken: !!getTokens().accessToken,
+    hasToken: getTokens()?.accessToken !== null,
   };
 };

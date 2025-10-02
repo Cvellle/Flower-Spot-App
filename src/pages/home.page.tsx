@@ -1,29 +1,30 @@
-import { SyntheticEvent, useEffect, useState } from "react";
-import SearchInputComponent from "../shared/components/SearchInputComponent";
-import { useQuery } from "@tanstack/react-query";
-import FlowerItem from "../components/FlowerItem";
-import { getFlowersFunction } from "../api/appApi";
-import { toast } from "react-toastify";
-import { isTablet } from "../shared/constants/screenMatch";
+import { SyntheticEvent, useState } from 'react';
+import SearchInputComponent from '../shared/components/SearchInputComponent';
+import { useQuery } from '@tanstack/react-query';
+import FlowerItem from '../components/FlowerItem';
+import { getFlowersFunction } from '../api/appApi';
+import { toast } from 'react-toastify';
+import { isTablet } from '../shared/constants/screenMatch';
+import { AxiosError } from 'axios';
 
 const HomePage = () => {
   // hooks
-  const [filterState, setFilterState] = useState<string>("");
+  const [filterState, setFilterState] = useState<string>('');
 
   // query hook
   const { data } = useQuery(
-    ["flowers"],
+    ['flowers'],
     async () => await getFlowersFunction(),
     {
-      onError(error) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
+      onError(error: AxiosError<{ message: string }>) {
+        toast.error(error.response?.data?.message || 'An error occurred', {
+          position: 'top-right',
         });
       },
-    }
+    },
   );
 
-  let flowers = Array.isArray(data?.items) ? data?.items : [];
+  const flowers = Array.isArray(data?.items) ? data?.items : [];
 
   return (
     <div className="min-h-screen pt-[80px]">
@@ -31,9 +32,9 @@ const HomePage = () => {
         <div
           style={{
             backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%), url(/assets/images/purpleFl.png)`,
-            backgroundSize: isTablet ? "100%" : "auto 100%",
-            backgroundPosition: "50% 50%",
-            backgroundRepeat: "no-repeat",
+            backgroundSize: isTablet ? '100%' : 'auto 100%',
+            backgroundPosition: '50% 50%',
+            backgroundRepeat: 'no-repeat',
           }}
           className="min-h-[500px] text-[#FFFFFF]"
         >
@@ -50,9 +51,11 @@ const HomePage = () => {
              lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px] flex justify-center"
           >
             <SearchInputComponent
-              placeholder={"Looking for something specific?"}
+              placeholder={'Looking for something specific?'}
               changeHandler={(value: string, event: SyntheticEvent) => {
-                event && setFilterState(value);
+                if (event) {
+                  setFilterState(value);
+                }
               }}
             />
           </div>
@@ -61,7 +64,7 @@ const HomePage = () => {
       <section className="mx-auto lg:max-w-[1220px] mt-[34px] flex flex-wrap justify-start p-[8px]">
         {flowers
           ?.filter((filterItem: IFlower) =>
-            filterItem.name.includes(filterState)
+            filterItem.name.includes(filterState),
           )
           ?.map((flower: IFlower) => (
             <div

@@ -1,31 +1,28 @@
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { getSightingsFunction } from "../api/appApi";
-import SightingItem from "../components/SightingItem";
-import { useNavigate } from "react-router-dom";
-import { mockedSightings } from "../shared/data/mockedData/mockedSighints";
-import { isDesktop, isTablet } from "../shared/constants/screenMatch";
-import { StarSvg } from "../assets/icons/StarSvg";
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { getSightingsFunction } from '../api/appApi';
+import SightingItem from '../components/SightingItem';
+import { useNavigate } from 'react-router-dom';
+import { mockedSightings } from '../shared/data/mockedData/mockedSighints';
+import { isDesktop, isTablet } from '../shared/constants/screenMatch';
+import { StarSvg } from '../assets/icons/StarSvg';
+import { AxiosError } from 'axios';
 
 const FlowerPage = () => {
   // hooks
   const navigate = useNavigate();
 
   // left as an example - empty array is comming from backend, and creation is cors protected
-  const { data } = useQuery(
-    ["sightings"],
-    async () => await getSightingsFunction(),
-    {
-      onError(error) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
-        });
-      },
-    }
-  );
+  useQuery(['sightings'], async () => await getSightingsFunction(), {
+    onError(error: AxiosError<{ message: string }>) {
+      toast.error(error.response?.data.message || 'Signup failed', {
+        position: 'top-right',
+      });
+    },
+  });
 
   // mocked data given
-  let sightings = mockedSightings;
+  const sightings = mockedSightings;
 
   return (
     <>
@@ -37,7 +34,7 @@ const FlowerPage = () => {
               ? {
                   background:
                     'url("/assets/images/orange.png") top 50% left 0 no-repeat, linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.4) 100%)',
-                  backgroundSize: "100% auto, auto 100%",
+                  backgroundSize: '100% auto, auto 100%',
                   zIndex: -1,
                 }
               : {}
@@ -48,7 +45,7 @@ const FlowerPage = () => {
             !isDesktop
               ? {
                   background: `url(/assets/images/purple_small.png)`,
-                  backgroundSize: isTablet ? "100% auto" : "auto 100%",
+                  backgroundSize: isTablet ? '100% auto' : 'auto 100%',
                 }
               : {}
           }
@@ -60,8 +57,8 @@ const FlowerPage = () => {
               className="absolute w-[280px] h-[350px] bottom-0 left-0"
               style={{
                 background: `url(/assets/images/purple_small.png)`,
-                backgroundSize: "auto 100%",
-                backgroundPosition: "50% 50%",
+                backgroundSize: 'auto 100%',
+                backgroundPosition: '50% 50%',
               }}
             ></div>
           ) : null}
@@ -69,7 +66,7 @@ const FlowerPage = () => {
             <div className="w-[100%] minW-[100%] flex">
               <div
                 style={{
-                  boxShadow: "0px 5px 15px 0px #0000001A",
+                  boxShadow: '0px 5px 15px 0px #0000001A',
                 }}
                 className="hover:bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E]
           rounded-[50%] bg-[#FFFFFF] flex items-center justify-center h-[30px] w-[30px]"
@@ -78,7 +75,7 @@ const FlowerPage = () => {
               </div>
               <button
                 style={{
-                  boxShadow: "0px 15px 20px 0px #EAA89F33",
+                  boxShadow: '0px 15px 20px 0px #EAA89F33',
                 }}
                 className="md:w-[85px] md:h-[25px] lg:w-[103px] lg:h-[30px]
          transition duration-500 md:bg-[#00000080] leading-none rounded-[20px]
@@ -104,9 +101,9 @@ const FlowerPage = () => {
         >
           <button
             onClick={() => {
-              navigate("new-sighting");
+              navigate('new-sighting');
             }}
-            style={{ boxShadow: "0px 15px 20px 0px #EAA89F33" }}
+            style={{ boxShadow: '0px 15px 20px 0px #EAA89F33' }}
             className="bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] w-[188px] h-[50px] rounded-[2.3px]
         text-[14px] font-[500] text-[#FFFFFF] mt-[-50px] block lg:mr-[80px]"
           >
@@ -124,16 +121,16 @@ const FlowerPage = () => {
           </div>
           <div className="pt-[34px] lg:pt-0 text-[13px] leading-[20px] text-justify lg:w-[750px]">
             <p>
-              Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and
+              {`Platycodon grandiflorus (from Ancient Greek πλατύς "wide" and
               κώδων "bell") is a species of herbaceous flowering perennial plant
               of the family Campanulaceae, and the only member of the genus
               Platycodon. It is native to East Asia (China, Korea, Japan, and
               the Russian Far East).[1] It is commonly known as balloon
               flower[2][3] (referring to the balloon-shaped flower buds),
-              Chinese bellflower,[2] or platycodon.[2]
+              Chinese bellflower,[2] or platycodon.[2]`}
             </p>
             <p className="mt-[20px]">
-              Growing to 60 cm (24 in) tall by 30 cm (12 in) wide, it is an
+              {`Growing to 60 cm (24 in) tall by 30 cm (12 in) wide, it is an
               herbaceous perennial with dark green leaves and blue flowers in
               late summer. A notable feature of the plant is the flower bud
               which swells like a balloon before fully opening.[4] The five
@@ -142,7 +139,7 @@ const FlowerPage = () => {
               and purple blooms in cultivation.[5] In Korea, white flowers are
               more common. This plant[6] together with its cultivars 'Apoyama
               group'[7] and 'Mariesii'[8] have gained the Royal Horticultural
-              Society's Award of Garden Merit.
+              Society's Award of Garden Merit.`}
             </p>
           </div>
           {isDesktop ? (

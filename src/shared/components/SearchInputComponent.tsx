@@ -1,23 +1,23 @@
-import { SyntheticEvent, useMemo, useState } from "react";
-import { debounce } from "lodash";
-import { SearchSvg } from "../../assets/icons/SearchSvg";
+import { SyntheticEvent, useMemo, useState } from 'react';
+import { debounce } from 'lodash';
+import { SearchSvg } from '../../assets/icons/SearchSvg';
 
 type HTMLElementEvent<T extends HTMLElement> = SyntheticEvent & {
   target: T;
 };
 
 export default function SearchInputComponent({
-  placeholder = "",
+  placeholder = '',
   changeHandler,
 }: {
   placeholder?: string;
   changeHandler: (value: string, event: SyntheticEvent) => void;
 }) {
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   const debounceFn = useMemo(() => debounce(handleDebounceFn, 300), []);
 
-  function handleDebounceFn(inputValue: any, event: SyntheticEvent) {
+  function handleDebounceFn(inputValue: string, event: SyntheticEvent) {
     changeHandler(inputValue, event);
   }
 
@@ -30,7 +30,7 @@ export default function SearchInputComponent({
     <div
       className="flex"
       style={{
-        boxShadow: "0px 15px 30px 0px #0000000D",
+        boxShadow: '0px 15px 30px 0px #0000000D',
       }}
     >
       <input

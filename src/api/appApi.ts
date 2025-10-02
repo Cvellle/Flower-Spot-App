@@ -1,4 +1,4 @@
-import { API } from "../services/axiosService";
+import { API } from '../services/axiosService';
 
 export const getFlowersFunction = async () => {
   const response = await API.get<{ items: IFlower[] }>(`flowers`);
@@ -17,7 +17,13 @@ export const addNewSightingFn = async (payload: {
   latitude: number;
   longitude: number;
 }) => {
-  const response = await API.post<any>(`account/sightings`, payload);
+  const response = await API.post<{
+    flowerId: string;
+    name: string;
+    description: string;
+    latitude: number;
+    longitude: number;
+  }>(`account/sightings`, payload);
   return response.data;
 };
 

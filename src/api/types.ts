@@ -8,10 +8,10 @@ export interface IUser {
   sightingsNum: number;
 }
 
-export interface GenericResponse {
-  [key: string]: any;
+export interface GenericResponse<T = unknown> {
+  [key: string]: unknown;
   status: string;
-  items: any[];
+  items: T[];
   message: string;
 }
 

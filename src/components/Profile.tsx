@@ -1,10 +1,11 @@
-import { removeTokens } from "../shared/helpers/authHelpers";
-import { getDate } from "../shared/helpers/timeHelpers";
-import { useAuth } from "../router/useAuth";
-import { useNavigate } from "react-router-dom";
+import { removeTokens } from '../shared/helpers/authHelpers';
+import { getDate } from '../shared/helpers/timeHelpers';
+import { useAuth } from '../router/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { IUser } from '../api/types';
 
 interface IProfile {
-  successHandler: (data?: any) => void;
+  successHandler: (data?: IUser) => void;
 }
 
 const Profile = ({ successHandler }: IProfile) => {
@@ -14,7 +15,7 @@ const Profile = ({ successHandler }: IProfile) => {
   const logoutUserHandler = () => {
     removeTokens();
     successHandler();
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -27,16 +28,16 @@ const Profile = ({ successHandler }: IProfile) => {
           <div
             style={{
               backgroundImage: `url(/assets/images/user.png)`,
-              backgroundSize: "80px 80px",
+              backgroundSize: '80px 80px',
             }}
             className="w-[80px] h-[80px] rounded-full"
           ></div>
           <div className="flex flex-col justify-between h-[44px] ml-[30px]">
             <p className="text-[25px] leading-[25px] text-[#334144] font-[300]">
-              {user?.firstName + " " + user?.lastName}
+              {user?.firstName + ' ' + user?.lastName}
             </p>
             <p className="text-[13px] leading-[13px] text-[#949EA0]">
-              {user?.sightingsNum + " sightings"}
+              {user?.sightingsNum + ' sightings'}
             </p>
           </div>
         </div>
@@ -55,7 +56,7 @@ const Profile = ({ successHandler }: IProfile) => {
           onClick={() => logoutUserHandler()}
           className="mb-[50px] md:mb-[0] block w-[150px] rounded-[3.2px] mx-auto h-[50px] mt-[84px]
            bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] font-[500] text-[#FFFFFF]"
-          type={"submit"}
+          type={'submit'}
         >
           Logout
         </button>

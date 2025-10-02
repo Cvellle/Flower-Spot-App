@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function RangeInputComponent() {
   const [rangeValue, setRangeValue] = useState<number>(50);
@@ -12,7 +12,7 @@ export default function RangeInputComponent() {
             type="range"
             id="range"
             value={rangeValue}
-            onChange={(e) => {
+            onChange={() => {
               // left here because of errors in console
               return;
             }}
@@ -25,10 +25,10 @@ export default function RangeInputComponent() {
           className="range range3 w-[195px] s:w-[295px]"
           style={{
             background: `url(/src/assets/icons/track.png) center center no-repeat, url(/src/assets/icons/point.png) left top 7px no-repeat, url(/src/assets/icons/point.png) center top 7px no-repeat, url(/src/assets/icons/point.png) right top 7px no-repeat`,
-            paddingTop: "10px",
-            marginTop: "-10px",
-            paddingBottom: "10px",
-            marginBottom: "-10px",
+            paddingTop: '10px',
+            marginTop: '-10px',
+            paddingBottom: '10px',
+            marginBottom: '-10px',
           }}
         >
           <input
@@ -45,7 +45,7 @@ export default function RangeInputComponent() {
       </div>
       <div
         style={{
-          padding: "11px 45px 0 45px",
+          padding: '11px 45px 0 45px',
         }}
         className="flex w-[285px] s:w-[397px] relative z-[5] text-[14px] justify-between"
       >

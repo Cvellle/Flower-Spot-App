@@ -1,23 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
-import FlowerItem from "../components/FlowerItem";
-import { getFlowersFunction } from "../api/appApi";
-import { toast } from "react-toastify";
+import { useQuery } from '@tanstack/react-query';
+import FlowerItem from '../components/FlowerItem';
+import { getFlowersFunction } from '../api/appApi';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 const Favorites = () => {
   // query hook
   const { data } = useQuery(
-    ["flowers"],
+    ['flowers'],
     async () => await getFlowersFunction(),
     {
-      onError(error) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
+      onError(error: AxiosError<{ message: string }>) {
+        toast.error(error.response?.data.message || 'Signup failed', {
+          position: 'top-right',
         });
       },
-    }
+    },
   );
 
-  let flowers = Array.isArray(data?.items) ? data?.items : [];
+  const flowers = Array.isArray(data?.items) ? data?.items : [];
 
   return (
     <div className="min-h-screen pt-[80px]">

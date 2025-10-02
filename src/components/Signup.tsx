@@ -1,31 +1,32 @@
-import { object, string, TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { signUpUserFn } from "../api/authApi";
-import FormInput from "./FormInput";
-import { getDate } from "../shared/helpers/timeHelpers";
-import { toast } from "react-toastify";
-import Message from "./Message";
+import { object, string, TypeOf } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { signUpUserFn } from '../api/authApi';
+import FormInput from './FormInput';
+import { getDate } from '../shared/helpers/timeHelpers';
+import { toast } from 'react-toastify';
+import Message from './Message';
+import { AxiosError } from 'axios';
 
 const registerSchema = object({
-  firstName: string().min(1, "Full name is required").max(100),
-  lastName: string().min(1, "Last name is required").max(100),
-  dateOfBirth: string().min(1, "Date of birth is required").max(100),
+  firstName: string().min(1, 'Full name is required').max(100),
+  lastName: string().min(1, 'Last name is required').max(100),
+  dateOfBirth: string().min(1, 'Date of birth is required').max(100),
   email: string()
-    .min(1, "Email address is required")
-    .email("Email Address is invalid"),
+    .min(1, 'Email address is required')
+    .email('Email Address is invalid'),
   password: string()
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 });
 
 export type RegisterInput = TypeOf<typeof registerSchema>;
 
 interface ISignUp {
-  successHandler: (data?: any) => void;
+  successHandler: () => void;
 }
 
 const SignUp = ({ successHandler }: ISignUp) => {
@@ -41,12 +42,12 @@ const SignUp = ({ successHandler }: ISignUp) => {
       onSuccess() {
         setSuccessMessage(true);
       },
-      onError(error: any) {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
+      onError(error: AxiosError<{ message: string }>) {
+        toast.error(error.response?.data.message || 'Signup failed', {
+          position: 'top-right',
         });
       },
-    }
+    },
   );
 
   const {
@@ -73,7 +74,7 @@ const SignUp = ({ successHandler }: ISignUp) => {
       {successMessage ? (
         <Message
           text={
-            "Congratulations! You have successfully signed up for FlowrSpot!"
+            'Congratulations! You have successfully signed up for FlowrSpot!'
           }
         >
           <button
@@ -125,12 +126,12 @@ const SignUp = ({ successHandler }: ISignUp) => {
                 <FormInput label="Email Adress" name="email" />
               </div>
               <div className="w-[100%] mt-[10px]">
-                <FormInput label="Password" name="password" type={"password"} />
+                <FormInput label="Password" name="password" type={'password'} />
               </div>
               <button
                 className="w-full h-[50px] mt-[10px] mb-[30px] bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E]
                font-[500] text-[#FFFFFF]"
-                type={"submit"}
+                type={'submit'}
               >
                 Create your Account
               </button>
