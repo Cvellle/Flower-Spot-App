@@ -18,6 +18,14 @@ const Sightings = () => {
       return await getSightingsFunction();
     },
     {
+      onSuccess(successData) {
+        console.log(
+          'Sightings data fetched successfully:',
+          data,
+          isLoading,
+          successData,
+        );
+      },
       onError(error: AxiosError<{ message: string }>) {
         toast.error(error.response?.data?.message || 'An error occurred', {
           position: 'top-right',
