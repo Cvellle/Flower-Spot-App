@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const apiBase = env.API_BASE_URL;
+  const apiBase = env.VITE_API_BASE_URL;
 
   return {
     plugins: [react()],
@@ -18,9 +18,12 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: apiBase,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (p) => p.replace(/^\/api/, '/api'),
         },
       },
+    },
+    build: {
+      outDir: 'dist',
     },
   };
 });
