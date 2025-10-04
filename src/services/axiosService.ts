@@ -1,21 +1,24 @@
 import axios from 'axios';
 import { refreshToken } from '../api/authApi';
 import { saveTokens } from '../shared/helpers/authHelpers';
+import { apiBase } from '../config/api';
 
 enum BareerRoutesEnum {
   Me = 'account/me',
 }
 
+// if needded for local testing
 export const apiURL =
   'https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online';
 
 export const API = axios.create({
-  baseURL: apiURL,
+  baseURL: apiBase,
   headers: {
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 const bareerRoutesArray: string[] = [BareerRoutesEnum.Me];
