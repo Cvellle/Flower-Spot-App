@@ -1,9 +1,18 @@
 {
     "version": 2,
-    "rewrites": [
+    "builds": [
         {
-            "source": "/api/:path*",
-            "destination": "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online/:path*"
+            "src": "vite.config.ts",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "dist"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(?!api)(.*)",
+            "dest": "/dist/$1"
         }
     ]
 }
