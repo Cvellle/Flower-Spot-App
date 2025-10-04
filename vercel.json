@@ -11,14 +11,14 @@
     ],
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/(?!api)(.*)",
             "dest": "/dist/$1"
         }
     ],
     "rewrites": [
         {
             "source": "/api/:path*",
-            "destination": "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online:path*"
+            "destination": "https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online/:path*"
         }
     ]
 }
