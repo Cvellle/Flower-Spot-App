@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { refreshToken } from '../api/authApi';
 import { saveTokens } from '../shared/helpers/authHelpers';
-import { apiBase } from '../config/api';
+import { getApiBase } from '../config/api';
 
 enum BareerRoutesEnum {
   Me = 'account/me',
@@ -13,7 +13,7 @@ export const apiURL =
   'https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online';
 
 export const API = axios.create({
-  baseURL: apiBase || apiURL,
+  baseURL: getApiBase() || apiURL,
   headers: {
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
