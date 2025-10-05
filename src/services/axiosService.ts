@@ -7,7 +7,7 @@ enum BareerRoutesEnum {
   Me = 'account/me',
 }
 
-// LEFT HERE VISIBLE BECAUSE THIS IS ONLY A DEMONSTRATION PROJECT
+// LEFT HERE VISIBLE SINCE THIS IS ONLY A DEMONSTRATION PROJECT
 // OR COMMENT THIS AND RENAME .env.example TO .env
 export const apiURL =
   'https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online';

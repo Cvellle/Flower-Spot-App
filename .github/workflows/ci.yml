@@ -3,7 +3,7 @@ name: My CI Workflow
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - main
 
 jobs:
   build-and-test:
@@ -19,14 +19,11 @@ jobs:
           node-version: 18
           cache: npm
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Debug project structure
-        run: ls -R
+        run: ls -R src/tests || echo "no test folder"
 
       - name: Run tests
         run: npx jest --verbose --runInBand
-
-      - name: Install dependencies
-        run: npm ci # use npm ci for clean CI installs
-
-      - name: Run tests
-        run: npm test
