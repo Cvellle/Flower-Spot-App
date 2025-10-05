@@ -19,6 +19,12 @@ jobs:
           node-version: 18
           cache: npm
 
+      - name: Debug project structure
+        run: ls -R
+
+      - name: Run tests
+        run: npx jest --verbose --runInBand
+
       - name: Install dependencies
         run: npm ci # use npm ci for clean CI installs
 
