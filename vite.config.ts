@@ -4,7 +4,8 @@ import path from 'path';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const apiBase = env.VITE_API_BASE_URL;
+  const apiBase = 'https://flowers-backend.vercel.app/';
+  // env.VITE_API_BASE_URL;
 
   return {
     plugins: [react()],

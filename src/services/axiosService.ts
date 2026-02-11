@@ -9,8 +9,8 @@ enum BareerRoutesEnum {
 
 // LEFT HERE VISIBLE SINCE THIS IS ONLY A DEMONSTRATION PROJECT
 // OR COMMENT THIS AND RENAME .env.example TO .env
-export const apiURL =
-  'https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online';
+// export const apiURL = 'https://a101116f092d1803361fee7a7e86c79f0665e82a.flowrspot.povio-projects.online
+export const apiURL = 'https://flowers-backend.vercel.app/';
 
 export const API = axios.create({
   baseURL: getApiBase() || apiURL,
