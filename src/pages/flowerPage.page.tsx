@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getSightingsFunction } from '../api/appApi';
+import { getSightingsFunction, getSingleFlowerFunction } from '../api/appApi';
 import SightingItem from '../components/SightingItem';
 import { useNavigate } from 'react-router-dom';
 import { mockedSightings } from '../shared/data/mockedData/mockedSighints';
@@ -11,11 +12,16 @@ import { AxiosError } from 'axios';
 const FlowerPage = () => {
   // hooks
   const navigate = useNavigate();
+  const { flowerId } = useParams<{ flowerId: string }>();
 
-  // left as an example - empty array is comming from backend, and creation is cors protected
-  useQuery(['sightings'], async () => await getSightingsFunction(), {
+  const {
+    data: flower,
+    isLoading,
+    isError,
+  } = useQuery(['flower', flowerId], () => getSingleFlowerFunction(flowerId), {
+    enabled: !!flowerId,
     onError(error: AxiosError<{ message: string }>) {
-      toast.error(error.response?.data.message || 'Signup failed', {
+      toast.error(error.response?.data.message || 'Could not load flower', {
         position: 'top-right',
       });
     },
@@ -81,18 +87,18 @@ const FlowerPage = () => {
          transition duration-500 md:bg-[#00000080] leading-none rounded-[20px]
          hover:bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E] text-[12px] ml-[5px]"
               >
-                127 sightings
+                {flower?.sightingsNum} sightings
               </button>
             </div>
             <h2
               className="block mt-[20px] text-[35px]
              leading-none h-[35px] block leading-[40px] w-full text-left"
             >
-              Balloon Flower
+              {flower?.name}
             </h2>
           </div>
           <p className="w-full text-[17px] leading-none h-[17px] mt-[10px] opacity-[7]">
-            Platycodon grandiflorus
+            {flower?.latinName}
           </p>
         </div>
         <div
@@ -114,10 +120,11 @@ const FlowerPage = () => {
       <section className=" text-[#949EA0] text-[14px] leading-[25px] lg:max-w-[1220px] lg:mx-auto">
         <div className="mt-[34px] px-[40px] lg:px-[20px] lg:flex lg:flex-wrap">
           <div className="h-[100px] lg:w-[330px] lg:pt-[50px]">
-            <p>Kingdom: Plantae</p>
-            <p>Order: Asterales</p>
-            <p>Family: Campanulaceae</p>
-            <p>Species: P. grandiflorus</p>
+            {/* <p>Kingdom: {flower?.genus}</p> */}
+            <p>Latin name: {flower?.latinName}</p>
+            <p>Family: {flower?.genus}</p>
+            {/* <p>Order: {flower?.latinName}</p> */}
+            {/* <p>Species: P. grandiflorus</p> */}
           </div>
           <div className="pt-[34px] lg:pt-0 text-[13px] leading-[20px] text-justify lg:w-[750px]">
             <p>

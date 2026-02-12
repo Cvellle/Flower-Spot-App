@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { StarSvg } from "../assets/icons/StarSvg";
-import { useAuth } from "../router/useAuth";
+import { useNavigate } from 'react-router-dom';
+import { StarSvg } from '../assets/icons/StarSvg';
+import { useAuth } from '../router/useAuth';
 
 const FlowerItem = ({ item }: { item: IFlower }) => {
   // hooks
@@ -10,13 +10,13 @@ const FlowerItem = ({ item }: { item: IFlower }) => {
   return (
     <div
       onClick={() => {
-        navigate("/flower/" + item.id);
+        navigate('/flower/' + item.id);
       }}
       key={item.id}
       style={{
-        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${"/assets/images/blueFl.png"})`,
-        backgroundPosition: "50% 50%",
-        backgroundSize: "auto 100%",
+        background: `linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.7) 89.5%), url(${'/assets/images/blueFl.png'})`,
+        backgroundPosition: '50% 50%',
+        backgroundSize: 'auto 100%',
       }}
       className="h-[230px] md:h-[290px] lg:h-[350px] flex justify-center content-start flex-wrap
        [&>*]:w-full [&>*]:text-center text-[#FFFFFF] text-[9.6px] md:text-[12px] leading-none cursor-pointer"
@@ -26,7 +26,7 @@ const FlowerItem = ({ item }: { item: IFlower }) => {
           {user ? (
             <div
               style={{
-                boxShadow: "0px 5px 15px 0px #0000001A",
+                boxShadow: '0px 5px 15px 0px #0000001A',
               }}
               className="hover:bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E]
           rounded-[50%] bg-[#FFFFFF] flex items-center justify-center h-[25px] w-[25px]"
@@ -47,13 +47,13 @@ const FlowerItem = ({ item }: { item: IFlower }) => {
       <div className="flex justify-center">
         <button
           style={{
-            boxShadow: "0px 15px 20px 0px #EAA89F33",
+            boxShadow: '0px 15px 20px 0px #EAA89F33',
           }}
           className="md:w-[85px] md:h-[25px] lg:w-[103px] lg:h-[30px]
          transition duration-500 md:bg-[#00000080] leading-none rounded-[20px]
          hover:bg-gradient-to-r from-[#ECBCB3] to-[#EAA79E]"
         >
-          {item?.sightingsNum + " sightings"}
+          {item?.sightingsNum + ' sightings'}
         </button>
       </div>
     </div>

@@ -5,6 +5,11 @@ export const getFlowersFunction = async () => {
   return response.data;
 };
 
+export const getSingleFlowerFunction = async (id: string | undefined) => {
+  const response = await API.get<IFlower>(`flowers/${id}`);
+  return response.data;
+};
+
 export const getSightingsFunction = async () => {
   const response = await API.get<IFlower[]>(`sightings`);
   return response.data;

@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import SearchInputComponent from '../shared/components/SearchInputComponent';
 import { useQuery } from '@tanstack/react-query';
 import FlowerItem from '../components/FlowerItem';
@@ -25,6 +25,12 @@ const FlowersPage = () => {
 
   const flowers = Array.isArray(data?.items) ? data?.items : [];
 
+  const search = filterState.trim().toLowerCase();
+
+  const filteredFlowers = flowers.filter((flower: IFlower) =>
+    (flower.name ?? '').toLowerCase().includes(search),
+  );
+
   return (
     <div className="min-h-screen">
       <section className="pt-[80px]">
@@ -45,18 +51,14 @@ const FlowersPage = () => {
         </div>
       </section>
       <section className="mx-auto lg:max-w-[1220px] mt-[0px] flex flex-wrap justify-start p-[8px]">
-        {flowers
-          ?.filter((filterItem: IFlower) =>
-            filterItem.name.includes(filterState),
-          )
-          ?.map((flower: IFlower) => (
-            <div
-              key={flower.id}
-              className="p-[8px] w-[50%] md:w-[33%] lg:max-w-[25%]"
-            >
-              <FlowerItem item={flower} />
-            </div>
-          ))}
+        {filteredFlowers?.map((flower: IFlower) => (
+          <div
+            key={flower.id}
+            className="p-[8px] w-[50%] md:w-[33%] lg:max-w-[25%]"
+          >
+            <FlowerItem item={flower} />
+          </div>
+        ))}
       </section>
     </div>
   );
