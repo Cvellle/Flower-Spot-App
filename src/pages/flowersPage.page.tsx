@@ -23,16 +23,17 @@ const FlowersPage = () => {
     },
   );
 
-  const flowers = Array.isArray(data?.items) ? data?.items : [];
-  const search = filterState?.trim().toLowerCase();
+  // Fallback to empty array immediately to satisfy TypeScript
+  const flowers: IFlower[] = Array.isArray(data?.items) ? data?.items : [];
+  const search = (filterState || '').trim().toLowerCase();
 
-  const filteredFlowers = flowers?.filter((flower: IFlower) =>
+  // No optional chaining here so result is guaranteed IFlower[]
+  const filteredFlowers = flowers.filter((flower: IFlower) =>
     (flower.name ?? '').toLowerCase().includes(search),
   );
 
-  const visibleFlowers = filteredFlowers?.slice(0, displayLimit);
+  const visibleFlowers = filteredFlowers.slice(0, displayLimit);
 
-  // Native Intersection Observer logic
   const lastElementRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (observer.current) observer.current.disconnect();
@@ -40,7 +41,7 @@ const FlowersPage = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (
           entries[0].isIntersecting &&
-          displayLimit < filteredFlowers?.length
+          displayLimit < filteredFlowers.length
         ) {
           setDisplayLimit((prev) => prev + 8);
         }
@@ -48,17 +49,14 @@ const FlowersPage = () => {
 
       if (node) observer.current.observe(node);
     },
-    [displayLimit, filteredFlowers?.length],
+    [displayLimit, filteredFlowers.length],
   );
 
   return (
     <div className="min-h-screen">
       <section className="pt-[80px]">
         <div className="min-h-[110px] text-[#FFFFFF]">
-          <div
-            className="mx-auto mt-[50px] [&_input]:w-[307px] md:[&_input]:w-[458px] lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px]
-           flex justify-center"
-          >
+          <div className="mx-auto mt-[50px] [&_input]:w-[307px] md:[&_input]:w-[458px] lg:[&_input]:w-[600px] h-[56px] md:h-[70px] md:w-[600px] flex justify-center">
             <SearchInputComponent
               placeholder={'Looking for something specific?'}
               changeHandler={(value: string, event: SyntheticEvent) => {
@@ -87,7 +85,7 @@ const FlowersPage = () => {
         ref={lastElementRef}
         className="h-20 w-full flex justify-center items-center"
       >
-        {displayLimit < filteredFlowers?.length && (
+        {displayLimit < filteredFlowers.length && (
           <p className="text-gray-400 py-4 italic">Loading more flowers...</p>
         )}
       </div>

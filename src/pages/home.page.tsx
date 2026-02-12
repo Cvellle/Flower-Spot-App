@@ -24,14 +24,14 @@ const HomePage = () => {
     },
   );
 
-  const flowers = Array.isArray(data?.items) ? data?.items : [];
-  const search = filterState?.trim().toLowerCase();
+  const flowers: IFlower[] = Array.isArray(data?.items) ? data?.items : [];
+  const search = (filterState || '').trim().toLowerCase();
 
-  const filteredFlowers = flowers?.filter((flower: IFlower) =>
+  const filteredFlowers = flowers.filter((flower: IFlower) =>
     (flower.name ?? '').toLowerCase().includes(search),
   );
 
-  const visibleFlowers = filteredFlowers?.slice(0, displayLimit);
+  const visibleFlowers = filteredFlowers.slice(0, displayLimit);
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -40,7 +40,7 @@ const HomePage = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (
           entries[0].isIntersecting &&
-          displayLimit < filteredFlowers?.length
+          displayLimit < filteredFlowers.length
         ) {
           setDisplayLimit((prev) => prev + 8);
         }
@@ -48,7 +48,7 @@ const HomePage = () => {
 
       if (node) observer.current.observe(node);
     },
-    [displayLimit, filteredFlowers?.length],
+    [displayLimit, filteredFlowers.length],
   );
 
   return (
@@ -100,7 +100,7 @@ const HomePage = () => {
         ref={lastElementRef}
         className="h-10 w-full flex justify-center items-center"
       >
-        {displayLimit < filteredFlowers?.length && (
+        {displayLimit < filteredFlowers.length && (
           <div className="text-gray-400 py-4 italic">
             Loading more flowers...
           </div>
