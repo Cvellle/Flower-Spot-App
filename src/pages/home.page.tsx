@@ -25,9 +25,9 @@ const HomePage = () => {
   );
 
   const flowers = Array.isArray(data?.items) ? data?.items : [];
-  const search = filterState.trim().toLowerCase();
+  const search = filterState?.trim().toLowerCase();
 
-  const filteredFlowers = flowers.filter((flower: IFlower) =>
+  const filteredFlowers = flowers?.filter((flower: IFlower) =>
     (flower.name ?? '').toLowerCase().includes(search),
   );
 
