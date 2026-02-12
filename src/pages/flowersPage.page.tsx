@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState, useCallback, useRef } from 'react';
 import SearchInputComponent from '../shared/components/SearchInputComponent';
 import { useQuery } from '@tanstack/react-query';
 import FlowerItem from '../components/FlowerItem';
@@ -7,10 +7,10 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 const FlowersPage = () => {
-  // hooks
   const [filterState, setFilterState] = useState<string>('');
+  const [displayLimit, setDisplayLimit] = useState(8);
+  const observer = useRef<IntersectionObserver | null>(null);
 
-  // query hook
   const { data } = useQuery(
     ['flowers'],
     async () => await getFlowersFunction(),
@@ -24,11 +24,31 @@ const FlowersPage = () => {
   );
 
   const flowers = Array.isArray(data?.items) ? data?.items : [];
-
   const search = filterState.trim().toLowerCase();
 
   const filteredFlowers = flowers.filter((flower: IFlower) =>
     (flower.name ?? '').toLowerCase().includes(search),
+  );
+
+  const visibleFlowers = filteredFlowers.slice(0, displayLimit);
+
+  // Native Intersection Observer logic
+  const lastElementRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (
+          entries[0].isIntersecting &&
+          displayLimit < filteredFlowers.length
+        ) {
+          setDisplayLimit((prev) => prev + 8);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [displayLimit, filteredFlowers.length],
   );
 
   return (
@@ -44,14 +64,16 @@ const FlowersPage = () => {
               changeHandler={(value: string, event: SyntheticEvent) => {
                 if (event) {
                   setFilterState(value);
+                  setDisplayLimit(8);
                 }
               }}
             />
           </div>
         </div>
       </section>
+
       <section className="mx-auto lg:max-w-[1220px] mt-[0px] flex flex-wrap justify-start p-[8px]">
-        {filteredFlowers?.map((flower: IFlower) => (
+        {visibleFlowers.map((flower: IFlower) => (
           <div
             key={flower.id}
             className="p-[8px] w-[50%] md:w-[33%] lg:max-w-[25%]"
@@ -60,6 +82,15 @@ const FlowersPage = () => {
           </div>
         ))}
       </section>
+
+      <div
+        ref={lastElementRef}
+        className="h-20 w-full flex justify-center items-center"
+      >
+        {displayLimit < filteredFlowers.length && (
+          <p className="text-gray-400 py-4 italic">Loading more flowers...</p>
+        )}
+      </div>
     </div>
   );
 };
