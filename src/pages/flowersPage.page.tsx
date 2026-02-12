@@ -30,7 +30,7 @@ const FlowersPage = () => {
     (flower.name ?? '').toLowerCase().includes(search),
   );
 
-  const visibleFlowers = filteredFlowers.slice(0, displayLimit);
+  const visibleFlowers = filteredFlowers?.slice(0, displayLimit);
 
   // Native Intersection Observer logic
   const lastElementRef = useCallback(
@@ -40,7 +40,7 @@ const FlowersPage = () => {
       observer.current = new IntersectionObserver((entries) => {
         if (
           entries[0].isIntersecting &&
-          displayLimit < filteredFlowers.length
+          displayLimit < filteredFlowers?.length
         ) {
           setDisplayLimit((prev) => prev + 8);
         }
@@ -48,7 +48,7 @@ const FlowersPage = () => {
 
       if (node) observer.current.observe(node);
     },
-    [displayLimit, filteredFlowers.length],
+    [displayLimit, filteredFlowers?.length],
   );
 
   return (
@@ -87,7 +87,7 @@ const FlowersPage = () => {
         ref={lastElementRef}
         className="h-20 w-full flex justify-center items-center"
       >
-        {displayLimit < filteredFlowers.length && (
+        {displayLimit < filteredFlowers?.length && (
           <p className="text-gray-400 py-4 italic">Loading more flowers...</p>
         )}
       </div>
