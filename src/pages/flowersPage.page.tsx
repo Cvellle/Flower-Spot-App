@@ -23,16 +23,14 @@ const FlowersPage = () => {
     },
   );
 
-  // Fallback to empty array immediately to satisfy TypeScript
-  const flowers: IFlower[] = Array.isArray(data?.items) ? data?.items : [];
+  const flowers: IFlower[] = data?.items || [];
   const search = (filterState || '').trim().toLowerCase();
 
-  // No optional chaining here so result is guaranteed IFlower[]
-  const filteredFlowers = flowers.filter((flower: IFlower) =>
+  const filteredFlowers: IFlower[] = flowers.filter((flower: IFlower) =>
     (flower.name ?? '').toLowerCase().includes(search),
   );
 
-  const visibleFlowers = filteredFlowers.slice(0, displayLimit);
+  const visibleFlowers: IFlower[] = filteredFlowers.slice(0, displayLimit);
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement | null) => {
